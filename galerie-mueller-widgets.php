@@ -3,7 +3,7 @@
  * Plugin Name: Galerie Mueller Widgets
  * Description: Custom Elementor widgets for Galerie Mueller – Wolfgang Mueller's art gallery website.
  * Plugin URI:  https://galerie-mueller.de
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      Abrarul Hoque
  * Author URI:  https://github.com/abrarulhoque
  * Text Domain: galerie-mueller-widgets
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants.
-define( 'GM_WIDGETS_VERSION', '1.0.0' );
+define( 'GM_WIDGETS_VERSION', '1.1.0' );
 define( 'GM_WIDGETS_FILE', __FILE__ );
 define( 'GM_WIDGETS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GM_WIDGETS_URL', plugin_dir_url( __FILE__ ) );

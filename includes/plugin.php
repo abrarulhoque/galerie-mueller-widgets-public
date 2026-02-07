@@ -243,6 +243,14 @@ final class Plugin {
 		// Contact CTA Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/contact-cta-widget.php';
 		$widgets_manager->register( new Widgets\Contact_CTA_Widget() );
+
+		// Header Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/header-widget.php';
+		$widgets_manager->register( new Widgets\Header_Widget() );
+
+		// Footer Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/footer-widget.php';
+		$widgets_manager->register( new Widgets\Footer_Widget() );
 	}
 
 	/**
@@ -307,6 +315,22 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Header Widget CSS.
+		wp_register_style(
+			'gm-header-style',
+			GM_WIDGETS_URL . 'assets/css/header-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Footer Widget CSS.
+		wp_register_style(
+			'gm-footer-style',
+			GM_WIDGETS_URL . 'assets/css/footer-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -365,6 +389,24 @@ final class Plugin {
 		wp_register_script(
 			'gm-contact-cta-script',
 			GM_WIDGETS_URL . 'assets/js/contact-cta-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Header Widget JS.
+		wp_register_script(
+			'gm-header-script',
+			GM_WIDGETS_URL . 'assets/js/header-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Footer Widget JS.
+		wp_register_script(
+			'gm-footer-script',
+			GM_WIDGETS_URL . 'assets/js/footer-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true

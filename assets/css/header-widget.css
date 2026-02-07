@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Galerie Mueller - Header Widget Styles
+   ========================================================================== */
+
+/* --- Header Outer Wrapper --- */
+.gm-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: background-color 500ms ease, box-shadow 500ms ease, backdrop-filter 500ms ease;
+    background-color: transparent;
+}
+
+.gm-header.is-scrolled {
+    background-color: rgba(250, 250, 250, 0.95);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 1px 0 0 #E0DCD7;
+}
+
+/* --- Nav Container --- */
+.gm-header__nav {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 80px;
+    max-width: 1280px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+    .gm-header__nav {
+        justify-content: center;
+    }
+}
+
+/* --- Desktop Navigation Lists --- */
+.gm-header__nav-left,
+.gm-header__nav-right {
+    display: none;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .gm-header__nav-left,
+    .gm-header__nav-right {
+        display: flex;
+    }
+}
+
+/* --- Navigation Links --- */
+.gm-header__link {
+    position: relative;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: color 300ms ease;
+    color: #FFFFFF;
+}
+
+.gm-header.is-scrolled .gm-header__link {
+    color: #1A1A1A;
+}
+
+/* --- Link Hover Underline --- */
+.gm-header__link-underline {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    height: 1px;
+    width: 0;
+    transform: translateX(-50%);
+    background-color: #8C7A5B;
+    transition: width 300ms ease;
+}
+
+.gm-header__link:hover .gm-header__link-underline {
+    width: 100%;
+}
+
+/* --- Logo --- */
+.gm-header__logo {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: color 300ms ease;
+    color: #FFFFFF;
+}
+
+.gm-header.is-scrolled .gm-header__logo {
+    color: #1A1A1A;
+}
+
+@media (min-width: 768px) {
+    .gm-header__logo {
+        margin-left: 48px;
+        margin-right: 48px;
+    }
+}
+
+.gm-header__logo img {
+    max-height: 100%;
+    width: auto;
+}
+
+/* --- Hamburger Button (Mobile) --- */
+.gm-header__hamburger {
+    position: relative;
+    z-index: 50;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .gm-header__hamburger {
+        display: none;
+    }
+}
+
+.gm-header__hamburger-line {
+    display: block;
+    height: 1px;
+    width: 20px;
+    transition: transform 300ms ease, background-color 300ms ease;
+    background-color: #FFFFFF;
+}
+
+.gm-header.is-scrolled .gm-header__hamburger-line {
+    background-color: #1A1A1A;
+}
+
+.gm-header__hamburger.is-open .gm-header__hamburger-line--top {
+    transform: translateY(3.5px) rotate(45deg);
+    background-color: #1A1A1A;
+}
+
+.gm-header__hamburger.is-open .gm-header__hamburger-line--bottom {
+    transform: translateY(-3.5px) rotate(-45deg);
+    background-color: #1A1A1A;
+}
+
+/* --- Mobile Menu Overlay --- */
+.gm-header__mobile-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    background-color: #FAFAFA;
+    transition: opacity 300ms ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .gm-header__mobile-overlay {
+        display: none;
+    }
+}
+
+.gm-header__mobile-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Mobile Menu Links --- */
+.gm-header__mobile-links {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.gm-header__mobile-link {
+    position: relative;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    color: #1A1A1A;
+}
+
+.gm-header__mobile-link .gm-header__link-underline {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    height: 1px;
+    width: 0;
+    transform: translateX(-50%);
+    background-color: #8C7A5B;
+    transition: width 300ms ease;
+}
+
+.gm-header__mobile-link:hover .gm-header__link-underline {
+    width: 100%;
+}
+
+/* --- Body Scroll Lock --- */
+body.gm-menu-open {
+    overflow: hidden;
+}
+
+/* --- Focus Styles --- */
+.gm-header__link:focus-visible,
+.gm-header__logo:focus-visible,
+.gm-header__mobile-link:focus-visible,
+.gm-header__hamburger:focus-visible {
+    outline: 2px solid #8C7A5B;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
