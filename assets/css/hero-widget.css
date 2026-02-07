@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Galerie Mueller -- Hero Widget Styles
+   ========================================================================== */
+
+/* --- Section Wrapper --- */
+.gm-hero {
+	position: relative;
+	display: flex;
+	min-height: 100vh;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+/* --- Background Image --- */
+.gm-hero__bg-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+	z-index: 0;
+}
+
+/* --- Dark Overlay --- */
+.gm-hero__overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 1;
+}
+
+/* --- Content Container --- */
+.gm-hero__content {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	text-align: center;
+}
+
+/* --- Subtitle --- */
+.gm-hero__subtitle {
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 11px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.4em;
+	color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+
+/* --- Title --- */
+.gm-hero__title {
+	font-family: 'Playfair Display', ui-serif, Georgia, serif;
+	font-size: 2.25rem;
+	line-height: 2.5rem;
+	font-weight: 500;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+}
+
+/* --- CTA Button --- */
+.gm-hero__cta {
+	display: inline-block;
+	margin-top: 1rem;
+	border: 1px solid #FFFFFF;
+	padding: 0.75rem 2rem;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	color: #FFFFFF;
+	background-color: transparent;
+	text-decoration: none;
+	cursor: pointer;
+	transition-property: color, background-color, border-color;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+}
+
+.gm-hero__cta:hover,
+.gm-hero__cta:focus {
+	background-color: #FFFFFF;
+	color: #1A1A1A;
+}
+
+/* --- Scroll Indicator --- */
+.gm-hero__scroll-indicator {
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 10;
+}
+
+.gm-hero__scroll-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+	color: rgba(255, 255, 255, 0.6);
+	animation: gm-bounce-subtle 2s ease-in-out infinite;
+}
+
+/* --- Bounce Animation (Keyframes) --- */
+@keyframes gm-bounce-subtle {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(8px);
+	}
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* SM: 640px and up */
+@media (min-width: 640px) {
+	.gm-hero__subtitle {
+		font-size: 13px;
+	}
+
+	.gm-hero__title {
+		font-size: 3rem;
+		line-height: 1;
+	}
+}
+
+/* MD: 768px and up */
+@media (min-width: 768px) {
+	.gm-hero__title {
+		font-size: 3.75rem;
+		line-height: 1;
+	}
+}
+
+/* LG: 1024px and up */
+@media (min-width: 1024px) {
+	.gm-hero__title {
+		font-size: 64px;
+		line-height: 1;
+	}
+}
