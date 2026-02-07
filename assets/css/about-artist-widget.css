@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Galerie Mueller -- About Artist Widget Styles
+   ========================================================================== */
+
+/* --- Section Wrapper --- */
+.gm-about-section {
+	background-color: #F0EEEB;
+	padding: 80px 24px;
+	box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+	.gm-about-section {
+		padding-top: 120px;
+		padding-bottom: 120px;
+	}
+}
+
+/* --- Grid Container --- */
+.gm-about-grid {
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	max-width: 1152px;
+	align-items: center;
+	gap: 40px;
+}
+
+@media (min-width: 768px) {
+	.gm-about-grid {
+		grid-template-columns: 1fr 0.85fr;
+		gap: 64px;
+	}
+}
+
+/* --- Text Column --- */
+.gm-about-text {
+	order: 2;
+}
+
+@media (min-width: 768px) {
+	.gm-about-text {
+		order: 1;
+	}
+}
+
+/* --- Label --- */
+.gm-about-label {
+	margin-bottom: 16px;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	color: #8C7A5B;
+}
+
+/* --- Heading --- */
+.gm-about-heading {
+	margin-bottom: 24px;
+	font-family: 'Playfair Display', ui-serif, Georgia, serif;
+	font-size: 30px;
+	line-height: 1.2;
+	font-weight: 500;
+	color: #1A1A1A;
+}
+
+@media (min-width: 640px) {
+	.gm-about-heading {
+		font-size: 36px;
+	}
+}
+
+@media (min-width: 768px) {
+	.gm-about-heading {
+		font-size: 40px;
+	}
+}
+
+/* --- Bio Text --- */
+.gm-about-bio {
+	color: #6B6B6B;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 17px;
+	line-height: 1.8;
+	font-weight: 300;
+}
+
+.gm-about-bio p {
+	margin-bottom: 16px;
+}
+
+.gm-about-bio p:last-child {
+	margin-bottom: 32px;
+}
+
+/* --- CTA Link --- */
+.gm-about-cta {
+	display: inline-block;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 0.025em;
+	color: #8C7A5B;
+	text-decoration: none;
+	transition: color 300ms ease;
+}
+
+.gm-about-cta:hover,
+.gm-about-cta:focus {
+	color: #1A1A1A;
+}
+
+/* --- Portrait Column --- */
+.gm-about-portrait {
+	order: 1;
+}
+
+@media (min-width: 768px) {
+	.gm-about-portrait {
+		order: 2;
+	}
+}
+
+/* --- Image Wrapper --- */
+.gm-about-image {
+	position: relative;
+	aspect-ratio: 3 / 4;
+	width: 100%;
+	overflow: hidden;
+}
+
+.gm-about-image img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ==========================================================================
+   FADE-UP ANIMATION
+   ========================================================================== */
+
+.gm-about-grid--hidden {
+	opacity: 0;
+}
+
+@keyframes gm-about-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(var(--gm-anim-distance, 20px));
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.gm-about-grid--visible {
+	animation-name: gm-about-fade-up;
+	animation-duration: var(--gm-anim-duration, 600ms);
+	animation-timing-function: ease-out;
+	animation-fill-mode: forwards;
+}

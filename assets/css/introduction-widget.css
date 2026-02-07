@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Galerie Mueller -- Introduction Widget Styles
+   ========================================================================== */
+
+/* === Section Wrapper === */
+.gm-intro {
+	padding: 80px 24px;
+	background-color: transparent;
+	box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+	.gm-intro {
+		padding-top: 120px;
+		padding-bottom: 120px;
+	}
+}
+
+/* === Inner Container === */
+.gm-intro__inner {
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	max-width: 720px;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+/* === Accent Line === */
+.gm-intro__accent-line {
+	margin-bottom: 24px;
+	height: 1px;
+	width: 40px;
+	background-color: #8C7A5B;
+}
+
+/* === Label === */
+.gm-intro__label {
+	margin: 0 0 32px 0;
+	padding: 0;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	color: #6B6B6B;
+	line-height: 1.5;
+}
+
+/* === Blockquote === */
+.gm-intro__quote {
+	margin: 0 0 32px 0;
+	padding: 0;
+	border: none;
+}
+
+/* === Quote Marks === */
+.gm-intro__quote-mark {
+	font-size: 24px;
+	line-height: 1.333;
+	color: #8C7A5B;
+	display: inline;
+}
+
+/* === Quote Text === */
+.gm-intro__quote-text {
+	font-family: 'Playfair Display', ui-serif, Georgia, serif;
+	font-size: 24px;
+	line-height: 1.625;
+	color: #1A1A1A;
+	font-style: italic;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+
+@media (min-width: 640px) {
+	.gm-intro__quote-text {
+		font-size: 28px;
+		line-height: 1.5;
+	}
+}
+
+/* === Body Text === */
+.gm-intro__body {
+	margin: 0 0 40px 0;
+	padding: 0;
+	max-width: 600px;
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 17px;
+	line-height: 1.8;
+	font-weight: 300;
+	color: #6B6B6B;
+}
+
+/* === CTA Link === */
+.gm-intro__cta {
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 0.025em;
+	color: #8C7A5B;
+	text-decoration: none;
+	transition-property: color;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+	cursor: pointer;
+}
+
+.gm-intro__cta:hover,
+.gm-intro__cta:focus {
+	color: #1A1A1A;
+}
+
+/* === Fade-Up Animation === */
+.gm-intro__inner--hidden {
+	opacity: 0;
+}
+
+@keyframes gm-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(var(--gm-anim-distance, 20px));
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.gm-intro__inner--visible {
+	animation-name: gm-fade-up;
+	animation-duration: var(--gm-anim-duration, 600ms);
+	animation-timing-function: ease-out;
+	animation-fill-mode: forwards;
+	animation-delay: var(--gm-anim-delay, 0ms);
+}

@@ -219,6 +219,30 @@ final class Plugin {
 		// Hero Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/hero-widget.php';
 		$widgets_manager->register( new Widgets\Hero_Widget() );
+
+		// Introduction Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/introduction-widget.php';
+		$widgets_manager->register( new Widgets\Introduction_Widget() );
+
+		// Featured Works Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/featured-works-widget.php';
+		$widgets_manager->register( new Widgets\Featured_Works_Widget() );
+
+		// About Artist Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/about-artist-widget.php';
+		$widgets_manager->register( new Widgets\About_Artist_Widget() );
+
+		// Categories Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/categories-widget.php';
+		$widgets_manager->register( new Widgets\Categories_Widget() );
+
+		// PullQuote Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/pullquote-widget.php';
+		$widgets_manager->register( new Widgets\PullQuote_Widget() );
+
+		// Contact CTA Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/contact-cta-widget.php';
+		$widgets_manager->register( new Widgets\Contact_CTA_Widget() );
 	}
 
 	/**
@@ -235,6 +259,54 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Introduction Widget CSS.
+		wp_register_style(
+			'gm-introduction-style',
+			GM_WIDGETS_URL . 'assets/css/introduction-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Featured Works Widget CSS.
+		wp_register_style(
+			'gm-featured-works-style',
+			GM_WIDGETS_URL . 'assets/css/featured-works-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// About Artist Widget CSS.
+		wp_register_style(
+			'gm-about-artist-style',
+			GM_WIDGETS_URL . 'assets/css/about-artist-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Categories Widget CSS.
+		wp_register_style(
+			'gm-categories-style',
+			GM_WIDGETS_URL . 'assets/css/categories-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// PullQuote Widget CSS.
+		wp_register_style(
+			'gm-pullquote-style',
+			GM_WIDGETS_URL . 'assets/css/pullquote-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Contact CTA Widget CSS.
+		wp_register_style(
+			'gm-contact-cta-style',
+			GM_WIDGETS_URL . 'assets/css/contact-cta-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -244,7 +316,59 @@ final class Plugin {
 	 * @access public
 	 */
 	public function register_widget_scripts(): void {
-		// Future widget scripts will be registered here.
+		// Introduction Widget JS.
+		wp_register_script(
+			'gm-introduction-script',
+			GM_WIDGETS_URL . 'assets/js/introduction-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Featured Works Widget JS.
+		wp_register_script(
+			'gm-featured-works-script',
+			GM_WIDGETS_URL . 'assets/js/featured-works-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// About Artist Widget JS.
+		wp_register_script(
+			'gm-about-artist-script',
+			GM_WIDGETS_URL . 'assets/js/about-artist-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Categories Widget JS.
+		wp_register_script(
+			'gm-categories-script',
+			GM_WIDGETS_URL . 'assets/js/categories-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// PullQuote Widget JS.
+		wp_register_script(
+			'gm-pullquote-script',
+			GM_WIDGETS_URL . 'assets/js/pullquote-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Contact CTA Widget JS.
+		wp_register_script(
+			'gm-contact-cta-script',
+			GM_WIDGETS_URL . 'assets/js/contact-cta-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
 	}
 
 	/**

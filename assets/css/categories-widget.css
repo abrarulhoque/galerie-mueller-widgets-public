@@ -1,0 +1,149 @@
+/* ==========================================================================
+   Galerie Mueller -- Categories Widget Styles
+   ========================================================================== */
+
+/* --- Section Wrapper --- */
+.gm-categories {
+	padding: 64px 24px;
+	box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+	.gm-categories {
+		padding-top: 96px;
+		padding-bottom: 96px;
+	}
+}
+
+/* --- Container --- */
+.gm-categories__container {
+	max-width: 1152px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* --- Section Heading --- */
+.gm-categories__heading {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 48px;
+}
+
+.gm-categories__accent-bar {
+	width: 2px;
+	height: 24px;
+	background-color: #8C7A5B;
+	flex-shrink: 0;
+}
+
+.gm-categories__heading-text {
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.25em;
+	color: #6B6B6B;
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+/* --- Card Grid --- */
+.gm-categories__grid {
+	display: grid;
+	gap: 24px;
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+	.gm-categories__grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 768px) {
+	.gm-categories__grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+/* --- Card Link --- */
+.gm-categories__card-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+/* --- Card --- */
+.gm-categories__card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	box-shadow: none;
+}
+
+/* --- Image Wrapper --- */
+.gm-categories__image-wrapper {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 3 / 4;
+	overflow: hidden;
+	background-color: #F0EEEB;
+}
+
+.gm-categories__image-wrapper img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 500ms ease;
+}
+
+.gm-categories__card-link:hover .gm-categories__image-wrapper img {
+	transform: scale(1.03);
+}
+
+/* --- Card Content --- */
+.gm-categories__card-content {
+	padding-top: 16px;
+	text-align: center;
+}
+
+.gm-categories__card-title {
+	font-family: 'Playfair Display', ui-serif, Georgia, serif;
+	font-size: 22px;
+	font-weight: 400;
+	color: #1A1A1A;
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+.gm-categories__card-description {
+	font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	color: #6B6B6B;
+	margin-top: 4px;
+	line-height: 1.4;
+}
+
+/* ==========================================================================
+   FADE-UP ANIMATION
+   ========================================================================== */
+
+.gm-categories__container--hidden {
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.gm-categories__container--visible {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 700ms ease, transform 700ms ease;
+}
