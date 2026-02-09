@@ -251,6 +251,22 @@ final class Plugin {
 		// Footer Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/footer-widget.php';
 		$widgets_manager->register( new Widgets\Footer_Widget() );
+
+		// Gallery Header Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-header-widget.php';
+		$widgets_manager->register( new Widgets\Gallery_Header_Widget() );
+
+		// Category Tabs Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/category-tabs-widget.php';
+		$widgets_manager->register( new Widgets\Category_Tabs_Widget() );
+
+		// Artwork Grid Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/artwork-grid-widget.php';
+		$widgets_manager->register( new Widgets\Artwork_Grid_Widget() );
+
+		// Artwork Lightbox Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/artwork-lightbox-widget.php';
+		$widgets_manager->register( new Widgets\Artwork_Lightbox_Widget() );
 	}
 
 	/**
@@ -331,6 +347,38 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Gallery Header Widget CSS.
+		wp_register_style(
+			'gm-gallery-header-style',
+			GM_WIDGETS_URL . 'assets/css/gallery-header-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Category Tabs Widget CSS.
+		wp_register_style(
+			'gm-category-tabs-style',
+			GM_WIDGETS_URL . 'assets/css/category-tabs-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Artwork Grid Widget CSS.
+		wp_register_style(
+			'gm-artwork-grid-style',
+			GM_WIDGETS_URL . 'assets/css/artwork-grid-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Artwork Lightbox Widget CSS.
+		wp_register_style(
+			'gm-artwork-lightbox-style',
+			GM_WIDGETS_URL . 'assets/css/artwork-lightbox-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -407,6 +455,33 @@ final class Plugin {
 		wp_register_script(
 			'gm-footer-script',
 			GM_WIDGETS_URL . 'assets/js/footer-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Category Tabs Widget JS.
+		wp_register_script(
+			'gm-category-tabs-script',
+			GM_WIDGETS_URL . 'assets/js/category-tabs-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Artwork Grid Widget JS.
+		wp_register_script(
+			'gm-artwork-grid-script',
+			GM_WIDGETS_URL . 'assets/js/artwork-grid-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Artwork Lightbox Widget JS.
+		wp_register_script(
+			'gm-artwork-lightbox-script',
+			GM_WIDGETS_URL . 'assets/js/artwork-lightbox-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true

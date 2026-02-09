@@ -1,0 +1,178 @@
+/*
+ * Galerie Mueller - Category Tabs Widget Styles
+ * Widget: gm_category_tabs
+ */
+
+/* === Section === */
+.gm-category-tabs {
+  background-color: #FAFAFA;
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+
+/* === Container === */
+.gm-category-tabs__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .gm-category-tabs__container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gm-category-tabs__container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* === Navigation === */
+.gm-category-tabs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+/* === Tab Base Styles === */
+.gm-category-tabs__tab {
+  position: relative;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6B6B6B;
+  text-decoration: none;
+  padding-bottom: 8px;
+  transition-property: color;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.gm-category-tabs__tab:hover {
+  color: #1A1A1A;
+}
+
+.gm-category-tabs__tab:focus {
+  outline: 2px solid #8C7A5B;
+  outline-offset: 2px;
+}
+
+/* === Active Tab === */
+.gm-category-tabs__tab--active {
+  color: #1A1A1A;
+}
+
+.gm-category-tabs__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #8C7A5B;
+}
+
+/* === Button Style Variant === */
+.gm-category-tabs__tab--button {
+  padding: 12px 24px;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding-bottom: 12px;
+}
+
+.gm-category-tabs__tab--button::after {
+  display: none;
+}
+
+.gm-category-tabs__tab--button:hover {
+  background-color: #F0EEEB;
+}
+
+.gm-category-tabs__tab--button.gm-category-tabs__tab--active {
+  background-color: #8C7A5B;
+  color: #FFFFFF;
+}
+
+.gm-category-tabs__tab--button.gm-category-tabs__tab--active:hover {
+  background-color: #8C7A5B;
+}
+
+/* === Icons === */
+.gm-category-tabs__icon {
+  font-size: 16px;
+  color: inherit;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+}
+
+.gm-category-tabs__icon--before {
+  margin-right: 8px;
+}
+
+.gm-category-tabs__icon--after {
+  margin-left: 8px;
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .gm-category-tabs__nav {
+    gap: 24px;
+  }
+
+  .gm-category-tabs__tab {
+    font-size: 12px;
+    padding-bottom: 6px;
+  }
+
+  .gm-category-tabs__tab--button {
+    padding: 10px 20px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .gm-category-tabs__nav {
+    gap: 28px;
+  }
+}
+
+/* === Utility Classes for Alignment === */
+.gm-category-tabs__nav--left {
+  justify-content: flex-start;
+}
+
+.gm-category-tabs__nav--center {
+  justify-content: center;
+}
+
+.gm-category-tabs__nav--right {
+  justify-content: flex-end;
+}
+
+/* === Animation Support === */
+.gm-category-tabs__tab {
+  transition-property: color, background-color, border-color, box-shadow;
+}
+
+.gm-category-tabs__tab--button {
+  transition-property: color, background-color, border-color, box-shadow;
+}

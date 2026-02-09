@@ -1,0 +1,104 @@
+/*
+ * Galerie Mueller - Gallery Header Widget Styles
+ * Widget: gm_gallery_header
+ */
+
+/* === Section === */
+.gm-gallery-header {
+  background-color: #1A1A1A;
+  padding: 128px 24px 40px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .gm-gallery-header {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gm-gallery-header {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* === Container === */
+.gm-gallery-header__container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1280px;
+}
+
+/* === Flex Wrapper === */
+.gm-gallery-header__flex {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .gm-gallery-header__flex {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+}
+
+/* === Title === */
+.gm-gallery-header__title {
+  font-family: 'Playfair Display', ui-serif, Georgia, serif;
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #F5F3F0;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Breadcrumb Navigation === */
+.gm-gallery-header__breadcrumb {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #6B6B6B;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Breadcrumb Link === */
+.gm-gallery-header__link {
+  color: inherit;
+  text-decoration: none;
+  transition-property: color;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.gm-gallery-header__link:hover,
+.gm-gallery-header__link:focus {
+  color: #8C7A5B;
+}
+
+.gm-gallery-header__link:focus-visible {
+  outline: 2px solid #8C7A5B;
+  outline-offset: 2px;
+}
+
+/* === Breadcrumb Separator === */
+.gm-gallery-header__separator {
+  margin-left: 8px;
+  margin-right: 8px;
+  color: inherit;
+  display: inline;
+}
+
+/* === Current Page Text === */
+.gm-gallery-header__current {
+  color: #F5F3F0;
+  display: inline;
+}
