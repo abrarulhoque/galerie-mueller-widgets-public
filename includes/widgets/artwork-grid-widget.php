@@ -472,6 +472,33 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$repeater_tabs = new \Elementor\Repeater();
+
+		$repeater_tabs->add_control(
+			'tab_title',
+			[
+				'label'       => esc_html__( 'Category / Tab Name', 'galerie-mueller-widgets' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Verfügbare Werke', 'galerie-mueller-widgets' ),
+				'label_block' => true,
+			]
+		);
+
+		$this->add_control(
+			'category_tabs',
+			[
+				'label'       => esc_html__( 'Tabs', 'galerie-mueller-widgets' ),
+				'type'        => \Elementor\Controls_Manager::REPEATER,
+				'fields'      => $repeater_tabs->get_controls(),
+				'default'     => [
+					[ 'tab_title' => 'Verfügbare Werke' ],
+					[ 'tab_title' => 'Ausstellungen' ],
+				],
+				'title_field' => '{{{ tab_title }}}',
+				'condition'   => [ 'show_filter' => 'yes' ],
+			]
+		);
+
 		$this->add_control(
 			'all_filter_label',
 			[
@@ -1014,15 +1041,12 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 				esc_attr( $delay )
 			);
 		}
-		// Collect unique categories
+		// Collect categories explicitly from user tabs
 		$categories = [];
-		if ( 'yes' === $settings['show_filter'] ) {
-			foreach ( $settings['artworks'] as $item ) {
-				if ( ! empty( $item['artwork_category'] ) ) {
-					$cat = trim( $item['artwork_category'] );
-					if ( ! in_array( $cat, $categories, true ) ) {
-						$categories[] = $cat;
-					}
+		if ( 'yes' === $settings['show_filter'] && ! empty( $settings['category_tabs'] ) ) {
+			foreach ( $settings['category_tabs'] as $tab ) {
+				if ( ! empty( $tab['tab_title'] ) ) {
+					$categories[] = trim( $tab['tab_title'] );
 				}
 			}
 		}
