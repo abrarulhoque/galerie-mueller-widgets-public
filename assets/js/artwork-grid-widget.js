@@ -115,11 +115,49 @@
     });
   }
 
+  // Initialize filtering logic
+  function initFiltering() {
+    var filterBtns = document.querySelectorAll('.gm-artwork-grid__filter-btn');
+    if (!filterBtns.length) return;
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Update active class
+        var currentContainer = btn.closest('.gm-artwork-grid');
+        if (!currentContainer) return;
+
+        var siblingBtns = currentContainer.querySelectorAll('.gm-artwork-grid__filter-btn');
+        siblingBtns.forEach(function (b) { b.classList.remove('gm-artwork-grid__filter-btn--active'); });
+        btn.classList.add('gm-artwork-grid__filter-btn--active');
+
+        var filterValue = btn.dataset.filter;
+        var gridItems = currentContainer.querySelectorAll('.gm-artwork-grid__item');
+
+        gridItems.forEach(function (item) {
+          if (filterValue === '*' || item.dataset.category === filterValue) {
+            item.style.display = '';
+            // Trigger reflow for fade-up if configured
+            if (item.classList.contains('gm-artwork-grid__item--visible')) {
+               item.classList.remove('gm-artwork-grid__item--hidden', 'gm-artwork-grid__item--visible');
+               void item.offsetWidth;
+               item.classList.add('gm-artwork-grid__item--visible');
+            }
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
   // Main initialization
   function initArtworkGrid() {
     initFadeUpAnimation();
     initClickHandlers();
     initImageLoading();
+    initFiltering();
   }
 
   // Initialize when DOM is ready

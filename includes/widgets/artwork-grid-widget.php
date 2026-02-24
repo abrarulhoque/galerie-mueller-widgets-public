@@ -140,6 +140,17 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 		);
 
 		$repeater->add_control(
+			'artwork_category',
+			[
+				'label'       => esc_html__( 'Category', 'galerie-mueller-widgets' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Verfügbare Werke', 'galerie-mueller-widgets' ),
+				'description' => esc_html__( 'Used for filtering. Provide the exact category name (e.g., "Verfügbare Werke").', 'galerie-mueller-widgets' ),
+				'label_block' => true,
+			]
+		);
+
+		$repeater->add_control(
 			'artwork_year',
 			[
 				'label'   => esc_html__( 'Year', 'galerie-mueller-widgets' ),
@@ -227,6 +238,7 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 						'artwork_title'        => esc_html__( 'Ateliernotiz 07', 'galerie-mueller-widgets' ),
 						'artwork_medium'       => esc_html__( 'Öl auf Leinwand', 'galerie-mueller-widgets' ),
 						'artwork_year'         => 2023,
+						'artwork_category'     => 'Verfügbare Werke',
 						'artwork_dimensions'   => '80 × 100 cm',
 						'artwork_aspect_ratio' => '4/5',
 					],
@@ -234,6 +246,7 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 						'artwork_title'        => esc_html__( 'Linienstudie II', 'galerie-mueller-widgets' ),
 						'artwork_medium'       => esc_html__( 'Mischtechnik auf Papier', 'galerie-mueller-widgets' ),
 						'artwork_year'         => 2022,
+						'artwork_category'     => 'Vergangene Ausstellungen',
 						'artwork_dimensions'   => '42 × 59 cm',
 						'artwork_aspect_ratio' => '4/5',
 					],
@@ -241,6 +254,7 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 						'artwork_title'        => esc_html__( 'Komposition in Grau', 'galerie-mueller-widgets' ),
 						'artwork_medium'       => esc_html__( 'Tusche und Bleistift', 'galerie-mueller-widgets' ),
 						'artwork_year'         => 2024,
+						'artwork_category'     => 'Verfügbare Werke',
 						'artwork_dimensions'   => '30 × 30 cm',
 						'artwork_aspect_ratio' => '4/5',
 					],
@@ -259,6 +273,28 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 			[
 				'label' => esc_html__( 'Layout Settings', 'galerie-mueller-widgets' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			]
+		);
+
+		$this->add_control(
+			'show_filter',
+			[
+				'label'        => esc_html__( 'Show Category Filter', 'galerie-mueller-widgets' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Show', 'galerie-mueller-widgets' ),
+				'label_off'    => esc_html__( 'Hide', 'galerie-mueller-widgets' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'all_filter_label',
+			[
+				'label'     => esc_html__( '"All" Filter Label', 'galerie-mueller-widgets' ),
+				'type'      => \Elementor\Controls_Manager::TEXT,
+				'default'   => 'Alle',
+				'condition' => [ 'show_filter' => 'yes' ],
 			]
 		);
 
@@ -840,9 +876,41 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 				esc_attr( $delay )
 			);
 		}
+		// Collect unique categories
+		$categories = [];
+		if ( 'yes' === $settings['show_filter'] ) {
+			foreach ( $settings['artworks'] as $item ) {
+				if ( ! empty( $item['artwork_category'] ) ) {
+					$cat = trim( $item['artwork_category'] );
+					if ( ! in_array( $cat, $categories, true ) ) {
+						$categories[] = $cat;
+					}
+				}
+			}
+		}
 		?>
 		<section class="gm-artwork-grid">
 			<div class="gm-artwork-grid__container">
+				
+				<?php if ( 'yes' === $settings['show_filter'] && ! empty( $categories ) ) : ?>
+					<div class="gm-artwork-grid__filter-container">
+						<ul class="gm-artwork-grid__filters" role="tablist">
+							<li class="gm-artwork-grid__filter-item">
+								<button class="gm-artwork-grid__filter-btn gm-artwork-grid__filter-btn--active" data-filter="*" role="tab" aria-selected="true">
+									<?php echo esc_html( $settings['all_filter_label'] ?: 'Alle' ); ?>
+								</button>
+							</li>
+							<?php foreach ( $categories as $index => $category ) : ?>
+								<li class="gm-artwork-grid__filter-item">
+									<button class="gm-artwork-grid__filter-btn" data-filter="<?php echo esc_attr( sanitize_title( $category ) ); ?>" role="tab" aria-selected="false">
+										<?php echo esc_html( $category ); ?>
+									</button>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+
 				<div class="gm-artwork-grid__grid"<?php echo $grid_data_attrs; ?>>
 					<?php foreach ( $settings['artworks'] as $index => $item ) : ?>
 						<?php $this->render_artwork_item( $item, $index, $settings, $animation_class ); ?>
@@ -889,8 +957,13 @@ class Artwork_Grid_Widget extends \Elementor\Widget_Base {
 		} else {
 			$aspect_class = 'gm-artwork-grid__image-wrap--' . str_replace( '/', '-', $aspect_ratio );
 		}
+		
+		$category_attr = '';
+		if ( ! empty( $item['artwork_category'] ) ) {
+			$category_attr = ' data-category="' . esc_attr( sanitize_title( trim( $item['artwork_category'] ) ) ) . '"';
+		}
 		?>
-		<div class="gm-artwork-grid__item<?php echo esc_attr( $animation_class ); ?>"<?php echo $click_attrs; ?>>
+		<div class="gm-artwork-grid__item<?php echo esc_attr( $animation_class ); ?>"<?php echo $click_attrs; ?><?php echo $category_attr; ?>>
 			<div class="gm-artwork-grid__image-wrap <?php echo esc_attr( $aspect_class ); ?>" <?php echo $aspect_style; ?>>
 				<?php
 				if ( ! empty( $item['artwork_image']['id'] ) ) {

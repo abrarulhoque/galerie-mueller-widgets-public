@@ -34,6 +34,76 @@
   }
 }
 
+/* === Filter Tabs === */
+.gm-artwork-grid__filter-container {
+  margin-bottom: 40px;
+}
+
+.gm-artwork-grid__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gm-artwork-grid__filter-btn {
+  position: relative;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6B6B6B;
+  text-decoration: none;
+  padding-bottom: 8px;
+  transition-property: color;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.gm-artwork-grid__filter-btn:hover {
+  color: #1A1A1A;
+}
+
+.gm-artwork-grid__filter-btn:focus-visible {
+  outline: 2px solid #8C7A5B;
+  outline-offset: 2px;
+}
+
+.gm-artwork-grid__filter-btn--active {
+  color: #1A1A1A;
+}
+
+.gm-artwork-grid__filter-btn--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #8C7A5B;
+}
+
+@media (max-width: 640px) {
+  .gm-artwork-grid__filters {
+    gap: 24px;
+  }
+  .gm-artwork-grid__filter-btn {
+    font-size: 12px;
+    padding-bottom: 6px;
+  }
+}
+
 /* === Grid Layout === */
 .gm-artwork-grid__grid {
   display: grid;
