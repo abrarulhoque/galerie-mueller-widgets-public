@@ -256,9 +256,6 @@ final class Plugin {
 		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-header-widget.php';
 		$widgets_manager->register( new Widgets\Gallery_Header_Widget() );
 
-		// Category Tabs Widget.
-		require_once GM_WIDGETS_PATH . 'includes/widgets/category-tabs-widget.php';
-		$widgets_manager->register( new Widgets\Category_Tabs_Widget() );
 
 		// Artwork Grid Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/artwork-grid-widget.php';
@@ -356,13 +353,6 @@ final class Plugin {
 			GM_WIDGETS_VERSION
 		);
 
-		// Category Tabs Widget CSS.
-		wp_register_style(
-			'gm-category-tabs-style',
-			GM_WIDGETS_URL . 'assets/css/category-tabs-widget.css',
-			[],
-			GM_WIDGETS_VERSION
-		);
 
 		// Artwork Grid Widget CSS.
 		wp_register_style(
@@ -460,14 +450,6 @@ final class Plugin {
 			true
 		);
 
-		// Category Tabs Widget JS.
-		wp_register_script(
-			'gm-category-tabs-script',
-			GM_WIDGETS_URL . 'assets/js/category-tabs-widget.js',
-			[],
-			GM_WIDGETS_VERSION,
-			true
-		);
 
 		// Artwork Grid Widget JS.
 		wp_register_script(
