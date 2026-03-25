@@ -71,16 +71,6 @@ class About_Hero_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Disable inner wrapper.
-	 *
-	 * @since 1.0.0
-	 * @return bool
-	 */
-	public function has_widget_inner_wrapper(): bool {
-		return false;
-	}
-
-	/**
 	 * Get style dependencies.
 	 *
 	 * @since 1.0.0
@@ -952,10 +942,11 @@ class About_Hero_Widget extends Widget_Base {
 		$this->add_control(
 			'bg_image_position',
 			[
-				'label'   => esc_html__( 'Bildposition', 'galerie-mueller-widgets' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'center 30%',
-				'options' => [
+				'label'       => esc_html__( 'Bildposition', 'galerie-mueller-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'center 30%',
+				'render_type' => 'template',
+				'options'     => [
 					'top left'      => esc_html__( 'Oben Links', 'galerie-mueller-widgets' ),
 					'top center'    => esc_html__( 'Oben Mitte', 'galerie-mueller-widgets' ),
 					'top right'     => esc_html__( 'Oben Rechts', 'galerie-mueller-widgets' ),
@@ -973,10 +964,11 @@ class About_Hero_Widget extends Widget_Base {
 		$this->add_control(
 			'bg_image_size',
 			[
-				'label'   => esc_html__( 'Bildgröße', 'galerie-mueller-widgets' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'cover',
-				'options' => [
+				'label'       => esc_html__( 'Bildgröße', 'galerie-mueller-widgets' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'cover',
+				'render_type' => 'template',
+				'options'     => [
 					'cover'   => esc_html__( 'Abdecken', 'galerie-mueller-widgets' ),
 					'contain' => esc_html__( 'Enthalten', 'galerie-mueller-widgets' ),
 					'auto'    => esc_html__( 'Auto', 'galerie-mueller-widgets' ),
