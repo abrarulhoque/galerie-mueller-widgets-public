@@ -330,6 +330,10 @@ final class Plugin {
 		// Biography Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/biography-widget.php';
 		$widgets_manager->register( new Widgets\Biography_Widget() );
+
+		// Timeline Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/timeline-widget.php';
+		$widgets_manager->register( new Widgets\Timeline_Widget() );
 	}
 
 	/**
