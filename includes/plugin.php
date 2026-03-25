@@ -318,6 +318,18 @@ final class Plugin {
 		// Gallery Link Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-link-widget.php';
 		$widgets_manager->register( new Widgets\Gallery_Link_Widget() );
+
+		// View Works CTA Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/view-works-cta-widget.php';
+		$widgets_manager->register( new Widgets\View_Works_CTA_Widget() );
+
+		// About Hero Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/about-hero-widget.php';
+		$widgets_manager->register( new Widgets\About_Hero_Widget() );
+
+		// Biography Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/biography-widget.php';
+		$widgets_manager->register( new Widgets\Biography_Widget() );
 	}
 
 	/**
@@ -439,6 +451,30 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// View Works CTA Widget CSS.
+		wp_register_style(
+			'gm-view-works-cta-style',
+			GM_WIDGETS_URL . 'assets/css/view-works-cta-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// About Hero Widget CSS.
+		wp_register_style(
+			'gm-about-hero-style',
+			GM_WIDGETS_URL . 'assets/css/about-hero-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Biography Widget CSS.
+		wp_register_style(
+			'gm-biography-style',
+			GM_WIDGETS_URL . 'assets/css/biography-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -552,6 +588,24 @@ final class Plugin {
 		wp_register_script(
 			'gm-gallery-link-script',
 			GM_WIDGETS_URL . 'assets/js/gallery-link-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// View Works CTA Widget JS.
+		wp_register_script(
+			'gm-view-works-cta-script',
+			GM_WIDGETS_URL . 'assets/js/view-works-cta-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Biography Widget JS.
+		wp_register_script(
+			'gm-biography-script',
+			GM_WIDGETS_URL . 'assets/js/biography-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true
