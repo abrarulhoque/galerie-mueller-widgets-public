@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Galerie Mueller -- Biography Widget Styles
+   ========================================================================== */
+
+/* --- Section Wrapper --- */
+.gm-biography {
+    background-color: #FAFAFA;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .gm-biography {
+        padding-top: 128px;
+        padding-bottom: 128px;
+    }
+}
+
+/* --- Inner Container --- */
+.gm-biography__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 720px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    transition: all 0.7s ease;
+}
+
+/* --- Animation: Hidden State --- */
+.gm-biography__inner--hidden {
+    opacity: 0;
+}
+
+/* --- Animation: Fade Up Keyframes --- */
+@keyframes gm-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(var(--gm-fade-offset, 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gm-biography__inner--animated {
+    animation: gm-fade-up var(--gm-fade-duration, 0.6s) ease-out forwards;
+}
+
+/* --- Heading Area --- */
+.gm-biography__heading-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 64px;
+}
+
+/* --- Accent Line --- */
+.gm-biography__accent-line {
+    width: 40px;
+    height: 1px;
+    background-color: #8C7A5B;
+    margin-bottom: 24px;
+}
+
+/* --- Heading --- */
+.gm-biography__heading {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #6B6B6B;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* --- Content Area --- */
+.gm-biography__content {
+    text-align: left;
+}
+
+/* --- Quote --- */
+.gm-biography__quote {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.375;
+    margin-top: 0;
+    margin-bottom: 48px;
+    position: relative;
+    padding-left: 32px;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    .gm-biography__quote {
+        font-size: 30px;
+    }
+}
+
+/* --- Decorative Quote Mark --- */
+.gm-biography__quote-mark {
+    position: absolute;
+    left: 0;
+    top: -8px;
+    font-size: 40px;
+    color: #8C7A5B;
+    opacity: 0.5;
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    line-height: 1;
+    font-style: normal;
+}
+
+/* --- Body Text --- */
+.gm-biography__body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: #6B6B6B;
+    line-height: 1.8;
+}
+
+.gm-biography__body p {
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.gm-biography__body p:last-child {
+    margin-bottom: 0;
+}
