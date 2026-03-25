@@ -42,7 +42,7 @@
 /* =============================================
    BACKGROUND IMAGE
    ============================================= */
-.gm-about-hero__bg-image {
+.gm-about-hero .gm-about-hero__bg-image {
   position: absolute;
   top: 0;
   left: 0;
