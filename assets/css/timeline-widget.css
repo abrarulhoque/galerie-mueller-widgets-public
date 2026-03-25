@@ -43,7 +43,7 @@
 @keyframes gm-timeline-fade-up {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(var(--gm-timeline-offset, 24px));
     }
     to {
         opacity: 1;
@@ -52,7 +52,7 @@
 }
 
 .gm-timeline__inner--visible {
-    animation: gm-timeline-fade-up 0.7s ease-out forwards;
+    animation: gm-timeline-fade-up var(--gm-timeline-duration, 700ms) ease-out forwards;
 }
 
 /* --------------------------------------------------------------------------

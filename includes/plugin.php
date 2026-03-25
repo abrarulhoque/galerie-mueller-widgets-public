@@ -648,7 +648,7 @@ final class Plugin {
 		wp_register_script(
 			'gm-timeline-script',
 			GM_WIDGETS_URL . 'assets/js/timeline-widget.js',
-			[ 'jquery' ],
+			[],
 			GM_WIDGETS_VERSION,
 			true
 		);

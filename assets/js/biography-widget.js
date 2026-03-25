@@ -45,6 +45,7 @@
     }
 
     // Re-init on Elementor frontend init (for editor preview)
+    if (typeof jQuery !== 'undefined') {
     jQuery(window).on('elementor/frontend/init', function () {
         elementorFrontend.hooks.addAction(
             'frontend/element_ready/gm_biography.default',
@@ -53,4 +54,5 @@
             }
         );
     });
+    }
 })();
