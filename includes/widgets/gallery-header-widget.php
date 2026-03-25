@@ -1,8 +1,10 @@
 <?php
 /**
- * Gallery Header Widget.
+ * Page Header Widget.
  *
- * Elementor widget that displays a dark header section with title and breadcrumb navigation.
+ * Elementor widget that displays a dark header section with dynamic page title
+ * and breadcrumb navigation. Can be used on any page — pulls title and breadcrumb
+ * dynamically from WordPress, with manual override options.
  *
  * @since 1.0.0
  */
@@ -10,7 +12,7 @@
 namespace Galerie_Mueller_Widgets\Widgets;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
 /**
@@ -20,8 +22,6 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget name.
-	 *
-	 * @return string Widget name.
 	 */
 	public function get_name(): string {
 		return 'gm_gallery_header';
@@ -29,17 +29,13 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget title.
-	 *
-	 * @return string Widget title.
 	 */
 	public function get_title(): string {
-		return esc_html__( 'Galerie Mueller - Gallery Header', 'galerie-mueller-widgets' );
+		return esc_html__( 'Galerie Mueller - Page Header', 'galerie-mueller-widgets' );
 	}
 
 	/**
 	 * Get widget icon.
-	 *
-	 * @return string Widget icon.
 	 */
 	public function get_icon(): string {
 		return 'eicon-header';
@@ -47,8 +43,6 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget categories.
-	 *
-	 * @return array Widget categories.
 	 */
 	public function get_categories(): array {
 		return [ 'galerie-mueller' ];
@@ -56,17 +50,13 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Get widget keywords.
-	 *
-	 * @return array Widget keywords.
 	 */
 	public function get_keywords(): array {
-		return [ 'gallery', 'header', 'breadcrumb', 'navigation', 'galerie', 'titel' ];
+		return [ 'gallery', 'header', 'breadcrumb', 'navigation', 'galerie', 'titel', 'page' ];
 	}
 
 	/**
 	 * Get style dependencies.
-	 *
-	 * @return array Style dependencies.
 	 */
 	public function get_style_depends(): array {
 		return [ 'gm-gallery-header-style' ];
@@ -90,11 +80,27 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'title_source',
+			[
+				'label'   => esc_html__( 'Title Source', 'galerie-mueller-widgets' ),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'dynamic',
+				'options' => [
+					'dynamic' => esc_html__( 'Page Title (Dynamic)', 'galerie-mueller-widgets' ),
+					'custom'  => esc_html__( 'Custom Text', 'galerie-mueller-widgets' ),
+				],
+			]
+		);
+
+		$this->add_control(
 			'page_title',
 			[
-				'label'   => esc_html__( 'Page Title', 'galerie-mueller-widgets' ),
-				'type'    => \Elementor\Controls_Manager::TEXT,
-				'default' => 'GALERIE',
+				'label'     => esc_html__( 'Custom Title', 'galerie-mueller-widgets' ),
+				'type'      => \Elementor\Controls_Manager::TEXT,
+				'default'   => 'GALERIE',
+				'condition' => [
+					'title_source' => 'custom',
+				],
 			]
 		);
 
@@ -126,6 +132,22 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 				'label_off'    => esc_html__( 'No', 'galerie-mueller-widgets' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'breadcrumb_source',
+			[
+				'label'     => esc_html__( 'Breadcrumb Source', 'galerie-mueller-widgets' ),
+				'type'      => \Elementor\Controls_Manager::SELECT,
+				'default'   => 'dynamic',
+				'options'   => [
+					'dynamic' => esc_html__( 'Page Title (Dynamic)', 'galerie-mueller-widgets' ),
+					'custom'  => esc_html__( 'Custom Text', 'galerie-mueller-widgets' ),
+				],
+				'condition' => [
+					'show_breadcrumb' => 'yes',
+				],
 			]
 		);
 
@@ -172,11 +194,13 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'current_text',
 			[
-				'label'     => esc_html__( 'Current Page Text', 'galerie-mueller-widgets' ),
-				'type'      => \Elementor\Controls_Manager::TEXT,
-				'default'   => 'Galerie',
-				'condition' => [
-					'show_breadcrumb' => 'yes',
+				'label'       => esc_html__( 'Current Page Text', 'galerie-mueller-widgets' ),
+				'type'        => \Elementor\Controls_Manager::TEXT,
+				'default'     => '',
+				'placeholder' => esc_html__( 'Auto (page title)', 'galerie-mueller-widgets' ),
+				'condition'   => [
+					'show_breadcrumb'   => 'yes',
+					'breadcrumb_source' => 'custom',
 				],
 			]
 		);
@@ -256,7 +280,7 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 					],
 				],
 				'default'    => [
-					'size' => 1280,
+					'size' => 1152,
 					'unit' => 'px',
 				],
 				'selectors'  => [
@@ -452,6 +476,48 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 	}
 
 	/**
+	 * Get the resolved page title (dynamic or custom).
+	 */
+	private function get_resolved_title( array $settings ): string {
+		if ( 'custom' === ( $settings['title_source'] ?? 'dynamic' ) ) {
+			return $settings['page_title'] ?? 'GALERIE';
+		}
+
+		// Dynamic: get current page/post title
+		$title = get_the_title();
+
+		// Fallback for archive/home pages
+		if ( empty( $title ) ) {
+			if ( is_home() ) {
+				$title = 'Blog';
+			} elseif ( is_archive() ) {
+				$title = get_the_archive_title();
+			} elseif ( is_search() ) {
+				$title = 'Suche';
+			} elseif ( is_404() ) {
+				$title = '404';
+			}
+		}
+
+		return $title ?: 'Seite';
+	}
+
+	/**
+	 * Get the resolved breadcrumb label (dynamic or custom).
+	 */
+	private function get_resolved_breadcrumb( array $settings ): string {
+		if ( 'custom' === ( $settings['breadcrumb_source'] ?? 'dynamic' ) ) {
+			$custom = $settings['current_text'] ?? '';
+			if ( ! empty( $custom ) ) {
+				return $custom;
+			}
+		}
+
+		// Dynamic: use same logic as title
+		return $this->get_resolved_title( $settings );
+	}
+
+	/**
 	 * Render widget output on the frontend.
 	 */
 	protected function render(): void {
@@ -471,6 +537,9 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 			$title_tag = 'h1';
 		}
 
+		$resolved_title      = $this->get_resolved_title( $settings );
+		$resolved_breadcrumb = $this->get_resolved_breadcrumb( $settings );
+
 		// Set up home link attributes
 		if ( ! empty( $settings['home_link']['url'] ) ) {
 			$this->add_link_attributes( 'home_link_attr', $settings['home_link'] );
@@ -482,7 +551,7 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 				<div class="gm-gallery-header__flex">
 
 					<<?php echo esc_html( $title_tag ); ?> class="gm-gallery-header__title">
-						<?php echo esc_html( $settings['page_title'] ); ?>
+						<?php echo esc_html( $resolved_title ); ?>
 					</<?php echo esc_html( $title_tag ); ?>>
 
 					<?php if ( 'yes' === $settings['show_breadcrumb'] ) : ?>
@@ -497,11 +566,9 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 								<span class="gm-gallery-header__separator"><?php echo esc_html( $settings['separator_text'] ); ?></span>
 							<?php endif; ?>
 
-							<?php if ( ! empty( $settings['current_text'] ) ) : ?>
-								<span class="gm-gallery-header__current">
-									<?php echo esc_html( $settings['current_text'] ); ?>
-								</span>
-							<?php endif; ?>
+							<span class="gm-gallery-header__current">
+								<?php echo esc_html( $resolved_breadcrumb ); ?>
+							</span>
 						</nav>
 					<?php endif; ?>
 
@@ -519,6 +586,8 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 		<#
 		var containerTag = settings.container_tag || 'section';
 		var titleTag = settings.title_tag || 'h1';
+		var titleText = ( settings.title_source === 'custom' ) ? ( settings.page_title || 'GALERIE' ) : '<?php echo esc_js( get_the_title() ?: 'Seite' ); ?>';
+		var breadcrumbText = ( settings.breadcrumb_source === 'custom' && settings.current_text ) ? settings.current_text : titleText;
 		#>
 
 		<{{{ containerTag }}} class="gm-gallery-header">
@@ -526,7 +595,7 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 				<div class="gm-gallery-header__flex">
 
 					<{{{ titleTag }}} class="gm-gallery-header__title">
-						{{{ settings.page_title }}}
+						{{{ titleText }}}
 					</{{{ titleTag }}}>
 
 					<# if ( 'yes' === settings.show_breadcrumb ) { #>
@@ -541,11 +610,9 @@ class Gallery_Header_Widget extends \Elementor\Widget_Base {
 								<span class="gm-gallery-header__separator">{{{ settings.separator_text }}}</span>
 							<# } #>
 
-							<# if ( settings.current_text ) { #>
-								<span class="gm-gallery-header__current">
-									{{{ settings.current_text }}}
-								</span>
-							<# } #>
+							<span class="gm-gallery-header__current">
+								{{{ breadcrumbText }}}
+							</span>
 						</nav>
 					<# } #>
 
