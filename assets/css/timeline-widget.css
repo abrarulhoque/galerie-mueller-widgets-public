@@ -1,0 +1,282 @@
+/* ==========================================================================
+   Timeline Widget - Galerie Mueller
+   Widget: gm_timeline
+   Handle: gm-timeline-style
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Section
+   -------------------------------------------------------------------------- */
+.gm-timeline {
+    background-color: #FAFAFA;
+    padding: 96px 0;      /* py-24 = 6rem = 96px */
+}
+
+@media (min-width: 768px) {
+    .gm-timeline {
+        padding-top: 128px;    /* md:py-32 = 8rem = 128px */
+        padding-bottom: 128px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Container / Inner
+   -------------------------------------------------------------------------- */
+.gm-timeline__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;          /* max-w-[800px] */
+    padding-left: 24px;        /* px-6 */
+    padding-right: 24px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 700ms;
+}
+
+/* --------------------------------------------------------------------------
+   Animation States
+   -------------------------------------------------------------------------- */
+.gm-timeline__inner--hidden {
+    opacity: 0;
+}
+
+@keyframes gm-timeline-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gm-timeline__inner--visible {
+    animation: gm-timeline-fade-up 0.7s ease-out forwards;
+}
+
+/* --------------------------------------------------------------------------
+   Heading Area
+   -------------------------------------------------------------------------- */
+.gm-timeline__heading-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 64px;       /* mb-16 = 4rem = 64px */
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__heading-area {
+        margin-bottom: 96px;   /* md:mb-24 = 6rem = 96px */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Vertical Accent Line (above heading)
+   -------------------------------------------------------------------------- */
+.gm-timeline__accent-line {
+    width: 1px;                /* w-[1px] */
+    height: 48px;              /* h-12 = 3rem = 48px */
+    background-color: #8C7A5B; /* bg-gallery-accent */
+    margin-bottom: 24px;       /* mb-6 = 1.5rem = 24px */
+}
+
+/* --------------------------------------------------------------------------
+   Section Heading
+   -------------------------------------------------------------------------- */
+.gm-timeline__heading {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;           /* text-[13px] */
+    font-weight: 400;          /* font-normal */
+    text-transform: uppercase; /* uppercase */
+    letter-spacing: 0.25em;    /* tracking-[0.25em] = 3.25px */
+    color: #1A1A1A;            /* text-foreground */
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Timeline Wrapper
+   -------------------------------------------------------------------------- */
+.gm-timeline__wrapper {
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Vertical Connecting Line (desktop only)
+   -------------------------------------------------------------------------- */
+.gm-timeline__connecting-line {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__connecting-line {
+        display: block;
+        position: absolute;
+        left: 86px;            /* left-[86px] */
+        top: 16px;             /* top-4 */
+        bottom: 16px;          /* bottom-4 */
+        width: 1px;            /* w-[1px] */
+        background-color: rgba(224, 220, 215, 0.4); /* bg-gallery-border/40 */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Timeline Items List
+   -------------------------------------------------------------------------- */
+.gm-timeline__items {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;                 /* gap-12 = 3rem = 48px */
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__items {
+        gap: 64px;             /* md:gap-16 = 4rem = 64px */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Timeline Item
+   -------------------------------------------------------------------------- */
+.gm-timeline__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__item {
+        flex-direction: row;   /* md:flex-row */
+        align-items: flex-start; /* md:items-start */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Year Column
+   -------------------------------------------------------------------------- */
+.gm-timeline__year-col {
+    flex-shrink: 0;
+    width: 100%;               /* w-full on mobile */
+    margin-bottom: 8px;        /* mb-2 */
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__year-col {
+        width: 120px;          /* md:w-[120px] */
+        margin-bottom: 0;      /* md:mb-0 */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Year Inner (flex row)
+   -------------------------------------------------------------------------- */
+.gm-timeline__year-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;                 /* gap-4 = 1rem = 16px */
+}
+
+/* --------------------------------------------------------------------------
+   Year Text
+   -------------------------------------------------------------------------- */
+.gm-timeline__year {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif; /* font-serif */
+    font-size: 24px;           /* text-2xl = 1.5rem = 24px */
+    line-height: 32px;         /* text-2xl line-height */
+    font-weight: 500;          /* font-medium */
+    color: #1A1A1A;            /* text-foreground */
+    font-variant-numeric: tabular-nums; /* tabular-nums */
+    letter-spacing: 0.025em;   /* tracking-wide */
+}
+
+/* --------------------------------------------------------------------------
+   Hover Dot (desktop only)
+   -------------------------------------------------------------------------- */
+.gm-timeline__dot {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__dot {
+        display: block;
+        width: 6px;            /* w-1.5 = 0.375rem = 6px */
+        height: 6px;           /* h-1.5 */
+        border-radius: 9999px; /* rounded-full */
+        background-color: #8C7A5B; /* bg-gallery-accent */
+        margin-left: auto;     /* ml-auto */
+        margin-right: 33px;    /* mr-[33px] */
+        opacity: 0;            /* opacity-0 */
+        transition-property: opacity;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 300ms; /* duration-300 */
+    }
+
+    .gm-timeline__item:hover .gm-timeline__dot {
+        opacity: 1;            /* group-hover:opacity-100 */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Content Column
+   -------------------------------------------------------------------------- */
+.gm-timeline__content-col {
+    flex-grow: 1;
+    padding-top: 4px;          /* pt-1 = 0.25rem = 4px */
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal Line (per item, desktop only)
+   -------------------------------------------------------------------------- */
+.gm-timeline__h-line {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__h-line {
+        display: block;
+        position: absolute;
+        left: 120px;           /* left-[120px] */
+        right: 0;              /* right-0 */
+        top: 24px;             /* top-6 = 1.5rem = 24px */
+        height: 1px;           /* h-[1px] */
+        background-color: rgba(224, 220, 215, 0.5); /* bg-gallery-border/50 */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Content Inner
+   -------------------------------------------------------------------------- */
+.gm-timeline__content-inner {
+    /* no padding on mobile */
+}
+
+@media (min-width: 768px) {
+    .gm-timeline__content-inner {
+        padding-left: 40px;    /* md:pl-10 = 2.5rem = 40px */
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Item Title
+   -------------------------------------------------------------------------- */
+.gm-timeline__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;           /* text-[17px] */
+    font-weight: 400;          /* font-normal */
+    color: #1A1A1A;            /* text-foreground */
+    margin: 0 0 6px 0;        /* mb-1.5 = 0.375rem = 6px */
+}
+
+/* --------------------------------------------------------------------------
+   Item Detail
+   -------------------------------------------------------------------------- */
+.gm-timeline__detail {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;           /* text-[15px] */
+    font-weight: 300;          /* font-light */
+    color: #6B6B6B;            /* text-gallery-muted */
+    margin: 0;
+}
