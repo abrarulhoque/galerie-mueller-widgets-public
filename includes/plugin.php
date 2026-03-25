@@ -334,6 +334,10 @@ final class Plugin {
 		// Timeline Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/timeline-widget.php';
 		$widgets_manager->register( new Widgets\Timeline_Widget() );
+
+		// Studio Images Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/studio-images-widget.php';
+		$widgets_manager->register( new Widgets\Studio_Images_Widget() );
 	}
 
 	/**
@@ -479,6 +483,22 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Timeline Widget CSS.
+		wp_register_style(
+			'gm-timeline-style',
+			GM_WIDGETS_URL . 'assets/css/timeline-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Studio Images Widget CSS.
+		wp_register_style(
+			'gm-studio-images-style',
+			GM_WIDGETS_URL . 'assets/css/studio-images-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -611,6 +631,24 @@ final class Plugin {
 			'gm-biography-script',
 			GM_WIDGETS_URL . 'assets/js/biography-widget.js',
 			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Studio Images Widget JS.
+		wp_register_script(
+			'gm-studio-images-script',
+			GM_WIDGETS_URL . 'assets/js/studio-images-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Timeline Widget JS.
+		wp_register_script(
+			'gm-timeline-script',
+			GM_WIDGETS_URL . 'assets/js/timeline-widget.js',
+			[ 'jquery' ],
 			GM_WIDGETS_VERSION,
 			true
 		);

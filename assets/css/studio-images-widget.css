@@ -1,0 +1,163 @@
+/* ==========================================================================
+   Studio Images Widget - Galerie Mueller
+   Widget: gm_studio_images
+   ========================================================================== */
+
+/* === Section Wrapper === */
+/* Tailwind: bg-gallery-surface py-20 */
+.gm-studio-images {
+    background-color: #F0EEEB;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+/* === Inner Container === */
+/* Tailwind: mx-auto max-w-6xl px-6 transition-all duration-700 */
+.gm-studio-images__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1152px;            /* max-w-6xl = 72rem = 1152px */
+    padding-left: 24px;           /* px-6 = 1.5rem = 24px */
+    padding-right: 24px;
+    transition-property: all;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Fade-Up Animation === */
+.gm-studio-images__inner--hidden {
+    opacity: 0;
+}
+
+@keyframes gm-studio-images-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(var(--gm-si-anim-distance, 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Configurable animation via CSS custom properties (set by JS) */
+.gm-studio-images__inner--visible {
+    animation-name: gm-studio-images-fade-up;
+    animation-duration: var(--gm-si-anim-duration, 0.6s);
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: var(--gm-si-anim-delay, 0s);
+}
+
+/* === Grid === */
+/* Tailwind: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr] gap-4 md:gap-6 items-center */
+.gm-studio-images__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;                    /* gap-4 = 1rem = 16px */
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .gm-studio-images__grid {
+        grid-template-columns: 1fr 1fr;   /* md:grid-cols-2 */
+        gap: 24px;                         /* md:gap-6 = 1.5rem = 24px */
+    }
+}
+
+@media (min-width: 1024px) {
+    .gm-studio-images__grid {
+        grid-template-columns: 1.5fr 1fr;  /* lg:grid-cols-[1.5fr_1fr] */
+    }
+}
+
+/* === Image Figure Wrapper (shared) === */
+/* Tailwind: relative w-full overflow-hidden */
+.gm-studio-images__figure {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* === Image 1 (Landscape) === */
+/* Tailwind: aspect-[3/2] */
+.gm-studio-images__figure--1 {
+    aspect-ratio: 3/2;
+}
+
+/* === Image 2 (Portrait) === */
+/* Tailwind: aspect-[3/4] */
+.gm-studio-images__figure--2 {
+    aspect-ratio: 3/4;
+}
+
+/* === Image Element (shared) === */
+/* Next.js fill + Tailwind: object-cover transition-transform duration-700 */
+.gm-studio-images__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition-property: transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Hover Effect === */
+/* Tailwind: group-hover:scale-[1.03] */
+.gm-studio-images__figure:hover .gm-studio-images__img {
+    transform: scale(1.03);
+}
+
+/* Hover disabled state (applied via JS when enable_hover_zoom is off) */
+.gm-studio-images__figure--no-hover:hover .gm-studio-images__img {
+    transform: none;
+}
+
+/* === Captions Row === */
+/* Tailwind: mt-6 flex justify-between px-2 text-[13px] font-light italic text-gallery-muted */
+.gm-studio-images__captions {
+    margin-top: 24px;             /* mt-6 = 1.5rem = 24px */
+    display: flex;
+    justify-content: space-between;
+    padding-left: 8px;            /* px-2 = 0.5rem = 8px */
+    padding-right: 8px;
+}
+
+/* === Caption Text (shared) === */
+.gm-studio-images__caption {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;              /* text-[13px] */
+    font-weight: 300;             /* font-light */
+    font-style: italic;           /* italic */
+    color: #6B6B6B;               /* text-gallery-muted */
+    line-height: 1.5;
+}
+
+/* === Caption 2: hidden on mobile, visible md+ === */
+/* Tailwind: hidden md:inline */
+.gm-studio-images__caption--2 {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .gm-studio-images__caption--2 {
+        display: inline;
+    }
+}
+
+/* Caption 2 forced visible on mobile (when show_caption_2_mobile is yes) */
+.gm-studio-images__caption--2.gm-studio-images__caption--mobile-visible {
+    display: inline;
+}
+
+/* === Focus styles for accessibility === */
+.gm-studio-images__figure:focus-within .gm-studio-images__img {
+    transform: scale(1.03);
+}
+
+.gm-studio-images__figure--no-hover:focus-within .gm-studio-images__img {
+    transform: none;
+}
