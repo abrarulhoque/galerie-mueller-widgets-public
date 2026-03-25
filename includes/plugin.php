@@ -186,6 +186,52 @@ final class Plugin {
 
 		// Register Google Fonts.
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_google_fonts' ] );
+
+		// Persist contact form email settings on document save.
+		add_action( 'elementor/document/after_save', [ $this, 'save_contact_form_settings' ], 10, 2 );
+	}
+
+	/**
+	 * Save contact form widget email settings to wp_options on document save.
+	 *
+	 * AJAX handlers cannot access Elementor widget settings directly,
+	 * so we persist them to options when the page is saved in Elementor.
+	 *
+	 * @since 1.2.0
+	 * @param \Elementor\Core\Base\Document $document
+	 * @param array $data
+	 */
+	public function save_contact_form_settings( $document, $data ): void {
+		if ( empty( $data['elements'] ) ) {
+			return;
+		}
+
+		$find_widgets = function( $elements ) use ( &$find_widgets ) {
+			foreach ( $elements as $element ) {
+				if ( isset( $element['widgetType'] ) && $element['widgetType'] === 'gm_contact_form' ) {
+					$settings  = $element['settings'] ?? [];
+					$widget_id = $element['id'] ?? '';
+
+					if ( $widget_id ) {
+						$email_settings = [
+							'recipient_email'      => ! empty( $settings['recipient_email'] ) ? sanitize_email( $settings['recipient_email'] ) : '',
+							'email_subject_prefix' => ! empty( $settings['email_subject_prefix'] ) ? sanitize_text_field( $settings['email_subject_prefix'] ) : 'Galerie Mueller Kontakt:',
+							'from_name'            => ! empty( $settings['from_name'] ) ? sanitize_text_field( $settings['from_name'] ) : 'Galerie Mueller Website',
+							'enable_reply_to'      => ! empty( $settings['enable_reply_to'] ) ? $settings['enable_reply_to'] : 'yes',
+							'save_submissions'     => ! empty( $settings['save_submissions'] ) ? $settings['save_submissions'] : 'yes',
+						];
+
+						update_option( 'gm_contact_form_settings_' . $widget_id, $email_settings, false );
+					}
+				}
+
+				if ( ! empty( $element['elements'] ) ) {
+					$find_widgets( $element['elements'] );
+				}
+			}
+		};
+
+		$find_widgets( $data['elements'] );
 	}
 
 	/**
@@ -264,6 +310,14 @@ final class Plugin {
 		// Artwork Lightbox Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/artwork-lightbox-widget.php';
 		$widgets_manager->register( new Widgets\Artwork_Lightbox_Widget() );
+
+		// Contact Form Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/contact-form-widget.php';
+		$widgets_manager->register( new Widgets\Contact_Form_Widget() );
+
+		// Gallery Link Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-link-widget.php';
+		$widgets_manager->register( new Widgets\Gallery_Link_Widget() );
 	}
 
 	/**
@@ -369,6 +423,22 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Contact Form Widget CSS.
+		wp_register_style(
+			'gm-contact-form-style',
+			GM_WIDGETS_URL . 'assets/css/contact-form-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
+
+		// Gallery Link Widget CSS.
+		wp_register_style(
+			'gm-gallery-link-style',
+			GM_WIDGETS_URL . 'assets/css/gallery-link-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -464,6 +534,24 @@ final class Plugin {
 		wp_register_script(
 			'gm-artwork-lightbox-script',
 			GM_WIDGETS_URL . 'assets/js/artwork-lightbox-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Contact Form Widget JS.
+		wp_register_script(
+			'gm-contact-form-script',
+			GM_WIDGETS_URL . 'assets/js/contact-form-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Gallery Link Widget JS.
+		wp_register_script(
+			'gm-gallery-link-script',
+			GM_WIDGETS_URL . 'assets/js/gallery-link-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true

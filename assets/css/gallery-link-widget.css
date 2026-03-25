@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Galerie Mueller -- Gallery Link CTA Widget Styles
+   Widget: gm_gallery_link
+   BEM Block: .gm-gallery-link
+   ========================================================================== */
+
+/* --- Section Wrapper --- */
+.gm-gallery-link {
+    background-color: #F0EEEB;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+/* --- Inner Container --- */
+.gm-gallery-link__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 672px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.7s ease;
+}
+
+/* --- Animation: Hidden State --- */
+.gm-gallery-link__inner--hidden {
+    opacity: 0;
+}
+
+/* --- Animation: Fade Up Keyframes --- */
+@keyframes gm-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(var(--gm-fade-offset, 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gm-gallery-link__inner--animated {
+    animation: gm-fade-up var(--gm-fade-duration, 0.6s) ease-out forwards;
+}
+
+/* --- Accent Line --- */
+.gm-gallery-link__accent-line {
+    width: 40px;
+    height: 1px;
+    background-color: #8C7A5B;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+}
+
+/* --- Text --- */
+.gm-gallery-link__text {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: #6B6B6B;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+/* --- Link --- */
+.gm-gallery-link__link {
+    display: inline-block;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C7A5B;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    transition-property: color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.gm-gallery-link__link:hover {
+    color: #1A1A1A;
+}
+
+.gm-gallery-link__link:focus {
+    outline: 2px solid #8C7A5B;
+    outline-offset: 2px;
+}
+
+/* --- Arrow --- */
+.gm-gallery-link__arrow {
+    margin-left: 6px;
+    display: inline;
+}
