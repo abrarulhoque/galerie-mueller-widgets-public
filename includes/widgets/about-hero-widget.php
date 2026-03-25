@@ -81,16 +81,6 @@ class About_Hero_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Static content (no dynamic data).
-	 *
-	 * @since 1.0.0
-	 * @return bool
-	 */
-	protected function is_dynamic_content(): bool {
-		return false;
-	}
-
-	/**
 	 * Get style dependencies.
 	 *
 	 * @since 1.0.0
@@ -977,9 +967,6 @@ class About_Hero_Widget extends Widget_Base {
 					'bottom center' => esc_html__( 'Unten Mitte', 'galerie-mueller-widgets' ),
 					'bottom right'  => esc_html__( 'Unten Rechts', 'galerie-mueller-widgets' ),
 				],
-				'selectors' => [
-					'{{WRAPPER}} .gm-about-hero__bg-image' => 'object-position: {{VALUE}};',
-				],
 			]
 		);
 
@@ -993,9 +980,6 @@ class About_Hero_Widget extends Widget_Base {
 					'cover'   => esc_html__( 'Abdecken', 'galerie-mueller-widgets' ),
 					'contain' => esc_html__( 'Enthalten', 'galerie-mueller-widgets' ),
 					'auto'    => esc_html__( 'Auto', 'galerie-mueller-widgets' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .gm-about-hero__bg-image' => 'object-fit: {{VALUE}};',
 				],
 			]
 		);
@@ -1043,8 +1027,10 @@ class About_Hero_Widget extends Widget_Base {
 		}
 
 		// Background image.
-		$bg_url = $settings['background_image']['url'] ?? '';
-		$bg_alt = $settings['background_image_alt'] ?? '';
+		$bg_url      = $settings['background_image']['url'] ?? '';
+		$bg_alt      = $settings['background_image_alt'] ?? '';
+		$bg_position = $settings['bg_image_position'] ?? 'center 30%';
+		$bg_size     = $settings['bg_image_size'] ?? 'cover';
 		?>
 		<section class="gm-about-hero">
 
@@ -1055,6 +1041,7 @@ class About_Hero_Widget extends Widget_Base {
 						class="gm-about-hero__bg-image"
 						src="<?php echo esc_url( $bg_url ); ?>"
 						alt="<?php echo esc_attr( $bg_alt ); ?>"
+						style="object-position: <?php echo esc_attr( $bg_position ); ?>; object-fit: <?php echo esc_attr( $bg_size ); ?>;"
 						loading="eager"
 					/>
 				<?php endif; ?>
@@ -1134,6 +1121,8 @@ class About_Hero_Widget extends Widget_Base {
 		var taglineTag  = settings.tagline_html_tag || 'p';
 		var bgUrl       = settings.background_image.url || '';
 		var bgAlt       = settings.background_image_alt || '';
+		var bgPosition  = settings.bg_image_position || 'center 30%';
+		var bgSize      = settings.bg_image_size || 'cover';
 
 		view.addInlineEditingAttributes( 'subtitle_text', 'none' );
 		view.addInlineEditingAttributes( 'title_text', 'none' );
@@ -1151,6 +1140,7 @@ class About_Hero_Widget extends Widget_Base {
 						class="gm-about-hero__bg-image"
 						src="{{ bgUrl }}"
 						alt="{{ bgAlt }}"
+						style="object-position: {{ bgPosition }}; object-fit: {{ bgSize }};"
 					/>
 				<# } #>
 

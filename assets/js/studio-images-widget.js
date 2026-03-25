@@ -7,49 +7,60 @@
 (function () {
     'use strict';
 
-    var StudioImagesHandler = function (scope) {
-        var inner = scope.querySelector('.gm-studio-images__inner');
-        if (!inner) return;
+    function initStudioImagesAnimation() {
+        var elements = document.querySelectorAll(
+            '.gm-studio-images__inner.gm-studio-images__inner--hidden'
+        );
 
-        // --- Fade-Up Animation ---
-        if (inner.classList.contains('gm-studio-images__inner--hidden')) {
-            var animDuration  = inner.getAttribute('data-animation-duration') || 600;
-            var animDelay     = inner.getAttribute('data-animation-delay') || 0;
-            var animDistance   = inner.getAttribute('data-animation-distance') || 20;
-            var animThreshold = parseFloat(inner.getAttribute('data-animation-threshold')) || 0.15;
+        elements.forEach(function (el) {
+            // Skip if already animated
+            if (el.classList.contains('gm-studio-images__inner--visible')) {
+                return;
+            }
+
+            var duration  = el.getAttribute('data-animation-duration') || 600;
+            var delay     = el.getAttribute('data-animation-delay') || 0;
+            var distance  = el.getAttribute('data-animation-distance') || 20;
+            var threshold = parseFloat(el.getAttribute('data-animation-threshold')) || 0.15;
 
             // Override CSS custom properties for configurable animation
-            inner.style.setProperty('--gm-si-anim-duration', animDuration + 'ms');
-            inner.style.setProperty('--gm-si-anim-delay', animDelay + 'ms');
-            inner.style.setProperty('--gm-si-anim-distance', animDistance + 'px');
+            el.style.setProperty('--gm-si-anim-duration', duration + 'ms');
+            el.style.setProperty('--gm-si-anim-delay', delay + 'ms');
+            el.style.setProperty('--gm-si-anim-distance', distance + 'px');
 
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('gm-studio-images__inner--hidden');
-                        entry.target.classList.add('gm-studio-images__inner--visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: animThreshold
-            });
+            var observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('gm-studio-images__inner--hidden');
+                            entry.target.classList.add('gm-studio-images__inner--visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: threshold }
+            );
 
-            observer.observe(inner);
-        }
-    };
+            observer.observe(el);
+        });
+    }
 
-    // Register with Elementor frontend
-    window.addEventListener('DOMContentLoaded', function () {
-        if (typeof elementorFrontend !== 'undefined' && elementorFrontend.hooks) {
+    // Run on DOMContentLoaded or immediately if already loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initStudioImagesAnimation);
+    } else {
+        initStudioImagesAnimation();
+    }
+
+    // Re-init on Elementor frontend init (for editor preview)
+    if (typeof jQuery !== 'undefined') {
+        jQuery(window).on('elementor/frontend/init', function () {
             elementorFrontend.hooks.addAction(
                 'frontend/element_ready/gm_studio_images.default',
                 function ($scope) {
-                    // $scope is a jQuery object from Elementor; get the raw DOM element
-                    var scope = $scope[0] || $scope;
-                    StudioImagesHandler(scope);
+                    initStudioImagesAnimation();
                 }
             );
-        }
-    });
+        });
+    }
 })();
