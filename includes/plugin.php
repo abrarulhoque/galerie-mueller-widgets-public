@@ -338,6 +338,10 @@ final class Plugin {
 		// Studio Images Widget.
 		require_once GM_WIDGETS_PATH . 'includes/widgets/studio-images-widget.php';
 		$widgets_manager->register( new Widgets\Studio_Images_Widget() );
+
+		// Gallery Widget (unified).
+		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-widget.php';
+		$widgets_manager->register( new Widgets\Gallery_Widget() );
 	}
 
 	/**
@@ -499,6 +503,14 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Gallery Widget CSS.
+		wp_register_style(
+			'gm-gallery-style',
+			GM_WIDGETS_URL . 'assets/css/gallery-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -648,6 +660,15 @@ final class Plugin {
 		wp_register_script(
 			'gm-timeline-script',
 			GM_WIDGETS_URL . 'assets/js/timeline-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Gallery Widget JS.
+		wp_register_script(
+			'gm-gallery-script',
+			GM_WIDGETS_URL . 'assets/js/gallery-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true
