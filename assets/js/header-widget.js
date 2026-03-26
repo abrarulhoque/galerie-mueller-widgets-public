@@ -68,15 +68,7 @@
 			if (typeof elementorFrontend !== 'undefined') {
 				elementorFrontend.hooks.addAction(
 					'frontend/element_ready/gm_header.default',
-					function ($scope) {
-						// Reset init flag so widget can re-initialize in editor
-						var el = $scope[0];
-						if (el) {
-							var h = el.querySelector('.gm-header');
-							if (h) {
-								h.dataset.gmHeaderInit = 'false';
-							}
-						}
+					function () {
 						initHeaderWidget();
 					}
 				);
