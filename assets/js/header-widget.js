@@ -13,6 +13,12 @@
 		}
 
 		headers.forEach(function (header) {
+			// Prevent double-initialization (script runs on load + Elementor hook)
+			if (header.dataset.gmHeaderInit === 'true') {
+				return;
+			}
+			header.dataset.gmHeaderInit = 'true';
+
 			var scrollThreshold = parseInt(header.getAttribute('data-scroll-threshold'), 10) || 40;
 			var hamburger = header.querySelector('.gm-header__hamburger');
 			var overlay = header.querySelector('.gm-header__mobile-overlay');
@@ -62,7 +68,15 @@
 			if (typeof elementorFrontend !== 'undefined') {
 				elementorFrontend.hooks.addAction(
 					'frontend/element_ready/gm_header.default',
-					function () {
+					function ($scope) {
+						// Reset init flag so widget can re-initialize in editor
+						var el = $scope[0];
+						if (el) {
+							var h = el.querySelector('.gm-header');
+							if (h) {
+								h.dataset.gmHeaderInit = 'false';
+							}
+						}
 						initHeaderWidget();
 					}
 				);
