@@ -40,6 +40,7 @@
 				hamburger.addEventListener('click', function () {
 					var isOpen = hamburger.classList.toggle('is-open');
 					overlay.classList.toggle('is-open', isOpen);
+					header.classList.toggle('gm-header--menu-open', isOpen);
 					document.body.classList.toggle('gm-menu-open', isOpen);
 				});
 
@@ -49,6 +50,7 @@
 					link.addEventListener('click', function () {
 						hamburger.classList.remove('is-open');
 						overlay.classList.remove('is-open');
+						header.classList.remove('gm-header--menu-open');
 						document.body.classList.remove('gm-menu-open');
 					});
 				});
