@@ -86,7 +86,8 @@
     transition: width 300ms ease;
 }
 
-.gm-header__link:hover .gm-header__link-underline {
+.gm-header__link:hover .gm-header__link-underline,
+.gm-header__link-underline--active {
     width: 100%;
 }
 
@@ -119,7 +120,10 @@
 }
 
 /* --- Hamburger Button (Mobile) --- */
-.gm-header__hamburger {
+.gm-header__hamburger,
+.gm-header__hamburger:hover,
+.gm-header__hamburger:focus,
+.gm-header__hamburger:active {
     position: relative;
     z-index: 50;
     display: flex;
@@ -130,6 +134,7 @@
     justify-content: center;
     gap: 6px;
     background: none;
+    background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 0;

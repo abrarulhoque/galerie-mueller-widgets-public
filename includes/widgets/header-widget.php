@@ -292,17 +292,29 @@ class Header_Widget extends Widget_Base {
 		$links_left = $settings['nav_links_left'] ?? [];
 		$links_right = $settings['nav_links_right'] ?? [];
 		$threshold  = $settings['scroll_threshold'] ?? 40;
+
+		// Current page path for active link detection.
+		$current_path = wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH );
+		$current_path = rtrim( $current_path, '/' );
+		if ( $current_path === '' ) {
+			$current_path = '/';
+		}
 		?>
 		<header class="gm-header" data-scroll-threshold="<?php echo esc_attr( $threshold ); ?>">
 			<nav class="gm-header__nav">
 
 				<!-- Left Nav -->
 				<ul class="gm-header__nav-left">
-					<?php foreach ( $links_left as $item ) : ?>
+					<?php foreach ( $links_left as $item ) :
+						$href       = $item['link_url']['url'] ?? '#';
+						$link_path  = rtrim( wp_parse_url( $href, PHP_URL_PATH ) ?: '', '/' );
+						$is_active  = ( $link_path === '/' && $current_path === '/' )
+							|| ( $link_path !== '/' && $link_path !== '' && strpos( $current_path, $link_path ) === 0 );
+					?>
 						<li>
-							<a href="<?php echo esc_url( $item['link_url']['url'] ?? '#' ); ?>" class="gm-header__link">
+							<a href="<?php echo esc_url( $href ); ?>" class="gm-header__link<?php echo $is_active ? ' gm-header__link--active' : ''; ?>">
 								<?php echo esc_html( $item['link_label'] ); ?>
-								<span class="gm-header__link-underline"></span>
+								<span class="gm-header__link-underline<?php echo $is_active ? ' gm-header__link-underline--active' : ''; ?>"></span>
 							</a>
 						</li>
 					<?php endforeach; ?>
@@ -315,11 +327,16 @@ class Header_Widget extends Widget_Base {
 
 				<!-- Right Nav -->
 				<ul class="gm-header__nav-right">
-					<?php foreach ( $links_right as $item ) : ?>
+					<?php foreach ( $links_right as $item ) :
+						$href       = $item['link_url']['url'] ?? '#';
+						$link_path  = rtrim( wp_parse_url( $href, PHP_URL_PATH ) ?: '', '/' );
+						$is_active  = ( $link_path === '/' && $current_path === '/' )
+							|| ( $link_path !== '/' && $link_path !== '' && strpos( $current_path, $link_path ) === 0 );
+					?>
 						<li>
-							<a href="<?php echo esc_url( $item['link_url']['url'] ?? '#' ); ?>" class="gm-header__link">
+							<a href="<?php echo esc_url( $href ); ?>" class="gm-header__link<?php echo $is_active ? ' gm-header__link--active' : ''; ?>">
 								<?php echo esc_html( $item['link_label'] ); ?>
-								<span class="gm-header__link-underline"></span>
+								<span class="gm-header__link-underline<?php echo $is_active ? ' gm-header__link-underline--active' : ''; ?>"></span>
 							</a>
 						</li>
 					<?php endforeach; ?>
@@ -334,11 +351,16 @@ class Header_Widget extends Widget_Base {
 				<!-- Mobile Overlay -->
 				<div class="gm-header__mobile-overlay">
 					<ul class="gm-header__mobile-links">
-						<?php foreach ( array_merge( $links_left, $links_right ) as $item ) : ?>
+						<?php foreach ( array_merge( $links_left, $links_right ) as $item ) :
+							$href       = $item['link_url']['url'] ?? '#';
+							$link_path  = rtrim( wp_parse_url( $href, PHP_URL_PATH ) ?: '', '/' );
+							$is_active  = ( $link_path === '/' && $current_path === '/' )
+								|| ( $link_path !== '/' && $link_path !== '' && strpos( $current_path, $link_path ) === 0 );
+						?>
 							<li>
-								<a href="<?php echo esc_url( $item['link_url']['url'] ?? '#' ); ?>" class="gm-header__mobile-link">
+								<a href="<?php echo esc_url( $href ); ?>" class="gm-header__mobile-link<?php echo $is_active ? ' gm-header__mobile-link--active' : ''; ?>">
 									<?php echo esc_html( $item['link_label'] ); ?>
-									<span class="gm-header__link-underline"></span>
+									<span class="gm-header__link-underline<?php echo $is_active ? ' gm-header__link-underline--active' : ''; ?>"></span>
 								</a>
 							</li>
 						<?php endforeach; ?>
