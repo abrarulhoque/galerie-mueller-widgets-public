@@ -20,13 +20,14 @@
     box-shadow: 0 1px 0 0 #E0DCD7;
 }
 
-/* When mobile menu is open, remove backdrop-filter so the overlay's
+/* When mobile menu is open, remove backdrop-filter instantly so the overlay's
    position:fixed is relative to the viewport, not the header.
    (backdrop-filter creates a containing block for fixed descendants) */
 .gm-header.gm-header--menu-open {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background-color: #FAFAFA;
+    transition: none;
 }
 
 /* --- Nav Container --- */
