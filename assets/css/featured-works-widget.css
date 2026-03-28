@@ -123,7 +123,8 @@
 .gm-fw-card-image-wrap--4-3 { aspect-ratio: 4 / 3; }
 
 /* Artwork Image */
-.gm-fw-card-img {
+/* Higher specificity to override Elementor's .elementor img { height: auto } */
+.gm-fw-card-image-wrap .gm-fw-card-img {
 	position: absolute;
 	top: 0;
 	left: 0;
