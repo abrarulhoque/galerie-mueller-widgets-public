@@ -1,0 +1,463 @@
+/* ==========================================================================
+   Exhibitions Widget (gm_exhibitions)
+   ========================================================================== */
+
+/* -- Section Wrapper -- */
+.gm-exhibitions {
+    background-color: #FAFAFA;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .gm-exhibitions {
+        padding-top: 96px;
+        padding-bottom: 96px;
+    }
+}
+
+/* -- Inner Container -- */
+.gm-exhibitions__inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1152px;
+    transition: all 0.7s ease;
+}
+
+/* -- Animation States -- */
+.gm-exhibitions__inner--hidden {
+    opacity: 0;
+}
+
+@keyframes gm-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(var(--gm-fade-offset, 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gm-exhibitions__inner--animated {
+    animation: gm-fade-up var(--gm-fade-duration, 0.6s) ease-out forwards;
+}
+
+/* -- Section Intro -- */
+.gm-exhibitions__intro {
+    margin-bottom: 56px;
+    max-width: 672px;
+}
+
+/* -- Intro Heading Row -- */
+.gm-exhibitions__intro-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+/* -- Accent Line -- */
+.gm-exhibitions__accent-line {
+    width: 2px;
+    height: 24px;
+    background-color: #8C7A5B;
+    flex-shrink: 0;
+}
+
+/* -- Heading -- */
+.gm-exhibitions__heading {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #6B6B6B;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* -- Description -- */
+.gm-exhibitions__description {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: #6B6B6B;
+    line-height: 1.625;
+    margin: 0;
+}
+
+/* -- Exhibition Grid -- */
+.gm-exhibitions__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+@media (min-width: 640px) {
+    .gm-exhibitions__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* -- Exhibition Card -- */
+.gm-exhibitions__card {
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+}
+
+/* -- Card Image Wrap -- */
+.gm-exhibitions__card-image-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%;
+    overflow: hidden;
+    background-color: #F0EEEB;
+}
+
+/* -- Card Image -- */
+.gm-exhibitions__card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Override Elementor height: auto on images */
+.gm-exhibitions__card-image-wrap .gm-exhibitions__card-image,
+.gm-exhibitions__modal-gallery .gm-exhibitions__modal-image {
+    height: 100%;
+}
+
+.gm-exhibitions__card:hover .gm-exhibitions__card-image {
+    transform: scale(1.03);
+}
+
+/* -- Card Overlay -- */
+.gm-exhibitions__card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease;
+}
+
+.gm-exhibitions__card:hover .gm-exhibitions__card-overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* -- Card Text -- */
+.gm-exhibitions__card-text {
+    padding-top: 20px;
+}
+
+/* -- Card Title Row -- */
+.gm-exhibitions__card-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* -- Card Title -- */
+.gm-exhibitions__card-title {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #1A1A1A;
+    transition: color 0.3s ease;
+    margin: 0;
+}
+
+.gm-exhibitions__card:hover .gm-exhibitions__card-title {
+    color: #8C7A5B;
+}
+
+/* -- Card Year -- */
+.gm-exhibitions__card-year {
+    flex-shrink: 0;
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #6B6B6B;
+}
+
+/* -- Card Location -- */
+.gm-exhibitions__card-location {
+    margin-top: 6px;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #6B6B6B;
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+
+.gm-exhibitions__modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+.gm-exhibitions__modal--open {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* -- Modal Backdrop -- */
+.gm-exhibitions__modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* -- Modal Content -- */
+.gm-exhibitions__modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 896px;
+    margin: 32px 16px;
+    background-color: #FAFAFA;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+/* -- Modal Close Button -- */
+.gm-exhibitions__modal-close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #6B6B6B;
+    transition: color 0.3s ease;
+}
+
+.gm-exhibitions__modal-close:hover {
+    color: #1A1A1A;
+}
+
+/* Override Elementor pink button hover */
+.gm-exhibitions__modal-close:hover,
+.gm-exhibitions__modal-close:focus,
+.gm-exhibitions__modal-close:active {
+    background-color: transparent;
+}
+
+/* -- Modal Gallery -- */
+.gm-exhibitions__modal-gallery {
+    position: relative;
+    width: 100%;
+    padding-bottom: 62.5%;
+    overflow: hidden;
+    background-color: #F0EEEB;
+}
+
+.gm-exhibitions__modal-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* -- Modal Nav Arrows -- */
+.gm-exhibitions__modal-prev,
+.gm-exhibitions__modal-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.gm-exhibitions__modal-prev {
+    left: 16px;
+}
+
+.gm-exhibitions__modal-next {
+    right: 16px;
+}
+
+.gm-exhibitions__modal-prev:hover,
+.gm-exhibitions__modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Override Elementor pink button hover */
+.gm-exhibitions__modal-prev:hover,
+.gm-exhibitions__modal-prev:focus,
+.gm-exhibitions__modal-prev:active,
+.gm-exhibitions__modal-next:hover,
+.gm-exhibitions__modal-next:focus,
+.gm-exhibitions__modal-next:active {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* -- Modal Dots -- */
+.gm-exhibitions__modal-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gm-exhibitions__modal-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.gm-exhibitions__modal-dot--active {
+    background-color: #FFFFFF;
+}
+
+/* Override Elementor pink button hover */
+.gm-exhibitions__modal-dot:hover,
+.gm-exhibitions__modal-dot:focus,
+.gm-exhibitions__modal-dot:active {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.gm-exhibitions__modal-dot--active:hover,
+.gm-exhibitions__modal-dot--active:focus,
+.gm-exhibitions__modal-dot--active:active {
+    background-color: #FFFFFF;
+}
+
+/* -- Modal Info -- */
+.gm-exhibitions__modal-info {
+    padding: 32px;
+}
+
+@media (min-width: 768px) {
+    .gm-exhibitions__modal-info {
+        padding: 40px 48px;
+    }
+}
+
+/* -- Modal Title Row -- */
+.gm-exhibitions__modal-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+/* -- Modal Title -- */
+.gm-exhibitions__modal-title {
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .gm-exhibitions__modal-title {
+        font-size: 36px;
+    }
+}
+
+/* -- Modal Year -- */
+.gm-exhibitions__modal-year {
+    flex-shrink: 0;
+    font-family: 'Playfair Display', ui-serif, Georgia, serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #6B6B6B;
+}
+
+/* -- Modal Location -- */
+.gm-exhibitions__modal-location {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C7A5B;
+    letter-spacing: 0.05em;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+/* -- Modal Divider -- */
+.gm-exhibitions__modal-divider {
+    width: 32px;
+    height: 1px;
+    background-color: #E0DCD7;
+    margin-bottom: 24px;
+}
+
+/* -- Modal Description -- */
+.gm-exhibitions__modal-description {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: #6B6B6B;
+    line-height: 1.625;
+    margin: 0;
+}
+
+/* Override Elementor card button hover */
+.gm-exhibitions__card:hover,
+.gm-exhibitions__card:focus,
+.gm-exhibitions__card:active {
+    background-color: transparent;
+}

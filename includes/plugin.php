@@ -342,6 +342,10 @@ final class Plugin {
 		// Gallery Widget (unified).
 		require_once GM_WIDGETS_PATH . 'includes/widgets/gallery-widget.php';
 		$widgets_manager->register( new Widgets\Gallery_Widget() );
+
+		// Exhibitions Widget.
+		require_once GM_WIDGETS_PATH . 'includes/widgets/exhibitions-widget.php';
+		$widgets_manager->register( new Widgets\Exhibitions_Widget() );
 	}
 
 	/**
@@ -511,6 +515,14 @@ final class Plugin {
 			[],
 			GM_WIDGETS_VERSION
 		);
+
+		// Exhibitions Widget CSS.
+		wp_register_style(
+			'gm-exhibitions-style',
+			GM_WIDGETS_URL . 'assets/css/exhibitions-widget.css',
+			[],
+			GM_WIDGETS_VERSION
+		);
 	}
 
 	/**
@@ -669,6 +681,15 @@ final class Plugin {
 		wp_register_script(
 			'gm-gallery-script',
 			GM_WIDGETS_URL . 'assets/js/gallery-widget.js',
+			[],
+			GM_WIDGETS_VERSION,
+			true
+		);
+
+		// Exhibitions Widget JS.
+		wp_register_script(
+			'gm-exhibitions-script',
+			GM_WIDGETS_URL . 'assets/js/exhibitions-widget.js',
 			[],
 			GM_WIDGETS_VERSION,
 			true
