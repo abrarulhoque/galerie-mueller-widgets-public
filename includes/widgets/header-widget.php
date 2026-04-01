@@ -54,20 +54,34 @@ class Header_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'show_logo',
+			[
+				'label'        => esc_html__( 'Logo anzeigen', 'galerie-mueller-widgets' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Ja', 'galerie-mueller-widgets' ),
+				'label_off'    => esc_html__( 'Nein', 'galerie-mueller-widgets' ),
+				'return_value' => 'yes',
+				'default'      => '',
+			]
+		);
+
+		$this->add_control(
 			'logo_text',
 			[
-				'label'   => esc_html__( 'Logo Text', 'galerie-mueller-widgets' ),
-				'type'    => Controls_Manager::TEXT,
-				'default' => 'Galerie Mueller',
+				'label'     => esc_html__( 'Logo Text', 'galerie-mueller-widgets' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => 'Galerie Mueller',
+				'condition' => [ 'show_logo' => 'yes' ],
 			]
 		);
 
 		$this->add_control(
 			'logo_link',
 			[
-				'label'   => esc_html__( 'Logo Link', 'galerie-mueller-widgets' ),
-				'type'    => Controls_Manager::URL,
-				'default' => [ 'url' => '/' ],
+				'label'     => esc_html__( 'Logo Link', 'galerie-mueller-widgets' ),
+				'type'      => Controls_Manager::URL,
+				'default'   => [ 'url' => '/' ],
+				'condition' => [ 'show_logo' => 'yes' ],
 			]
 		);
 
@@ -107,8 +121,8 @@ class Header_Widget extends Widget_Base {
 				'type'    => Controls_Manager::REPEATER,
 				'fields'  => $repeater_left->get_controls(),
 				'default' => [
-					[ 'link_label' => 'Startseite', 'link_url' => [ 'url' => '/' ] ],
 					[ 'link_label' => 'Über den Künstler', 'link_url' => [ 'url' => '/ueber-den-kuenstler' ] ],
+					[ 'link_label' => 'Ausstellungen', 'link_url' => [ 'url' => '/ausstellungen' ] ],
 				],
 				'title_field' => '{{{ link_label }}}',
 			]
@@ -292,6 +306,7 @@ class Header_Widget extends Widget_Base {
 		$links_left = $settings['nav_links_left'] ?? [];
 		$links_right = $settings['nav_links_right'] ?? [];
 		$threshold  = $settings['scroll_threshold'] ?? 40;
+		$show_logo  = ( $settings['show_logo'] ?? '' ) === 'yes';
 
 		// Current page path for active link detection.
 		$current_path = wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH );
@@ -321,9 +336,11 @@ class Header_Widget extends Widget_Base {
 				</ul>
 
 				<!-- Logo -->
+				<?php if ( $show_logo ) : ?>
 				<a href="<?php echo esc_url( $settings['logo_link']['url'] ?? '/' ); ?>" class="gm-header__logo">
 					<?php echo esc_html( $settings['logo_text'] ); ?>
 				</a>
+				<?php endif; ?>
 
 				<!-- Right Nav -->
 				<ul class="gm-header__nav-right">
@@ -391,7 +408,9 @@ class Header_Widget extends Widget_Base {
 						</li>
 					<# }); #>
 				</ul>
+				<# if ( settings.show_logo === 'yes' ) { #>
 				<a href="{{ settings.logo_link.url }}" class="gm-header__logo">{{{ settings.logo_text }}}</a>
+			<# } #>
 				<ul class="gm-header__nav-right">
 					<# _.each( linksRight, function( item ) { #>
 						<li>

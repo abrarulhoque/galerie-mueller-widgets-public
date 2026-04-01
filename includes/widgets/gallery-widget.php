@@ -165,16 +165,44 @@ class Gallery_Widget extends \Elementor\Widget_Base {
 				'fields'      => $filter_repeater->get_controls(),
 				'default'     => [
 					[
-						'filter_label' => esc_html__( 'MALEREI', 'galerie-mueller' ),
-						'filter_slug'  => 'malerei',
+						'filter_label' => esc_html__( 'LANDSCHAFTEN', 'galerie-mueller' ),
+						'filter_slug'  => 'landschaften',
 					],
 					[
-						'filter_label' => esc_html__( 'ZEICHNUNG', 'galerie-mueller' ),
-						'filter_slug'  => 'zeichnung',
+						'filter_label' => esc_html__( 'PORTRÄTS', 'galerie-mueller' ),
+						'filter_slug'  => 'portraets',
 					],
 					[
-						'filter_label' => esc_html__( 'SKIZZEN', 'galerie-mueller' ),
-						'filter_slug'  => 'skizzen',
+						'filter_label' => esc_html__( 'STILLLEBEN', 'galerie-mueller' ),
+						'filter_slug'  => 'stillleben',
+					],
+					[
+						'filter_label' => esc_html__( 'ABSTRAKT', 'galerie-mueller' ),
+						'filter_slug'  => 'abstrakt',
+					],
+					[
+						'filter_label' => esc_html__( 'ARCHITEKTUR', 'galerie-mueller' ),
+						'filter_slug'  => 'architektur',
+					],
+					[
+						'filter_label' => esc_html__( 'NATUR', 'galerie-mueller' ),
+						'filter_slug'  => 'natur',
+					],
+					[
+						'filter_label' => esc_html__( 'FIGÜRLICH', 'galerie-mueller' ),
+						'filter_slug'  => 'figuerlich',
+					],
+					[
+						'filter_label' => esc_html__( 'STADTANSICHTEN', 'galerie-mueller' ),
+						'filter_slug'  => 'stadtansichten',
+					],
+					[
+						'filter_label' => esc_html__( 'MARITIM', 'galerie-mueller' ),
+						'filter_slug'  => 'maritim',
+					],
+					[
+						'filter_label' => esc_html__( 'EXPRESSIV', 'galerie-mueller' ),
+						'filter_slug'  => 'expressiv',
 					],
 				],
 				'title_field' => '{{{ filter_label }}}',
@@ -271,8 +299,8 @@ class Gallery_Widget extends \Elementor\Widget_Base {
 				'label'       => esc_html__( 'Kategorie-Slug', 'galerie-mueller' ),
 				'description' => esc_html__( 'Muss exakt mit dem Slug einer Filterkategorie übereinstimmen', 'galerie-mueller' ),
 				'type'        => \Elementor\Controls_Manager::TEXT,
-				'default'     => 'malerei',
-				'placeholder' => esc_html__( 'z.B. malerei', 'galerie-mueller' ),
+				'default'     => 'landschaften',
+				'placeholder' => esc_html__( 'z.B. landschaften', 'galerie-mueller' ),
 				'label_block' => false,
 			]
 		);
@@ -289,21 +317,21 @@ class Gallery_Widget extends \Elementor\Widget_Base {
 						'artwork_medium'     => esc_html__( 'Öl auf Leinwand', 'galerie-mueller' ),
 						'artwork_year'       => 2023,
 						'artwork_dimensions' => '80 x 60 cm',
-						'artwork_category'   => 'malerei',
+						'artwork_category'   => 'landschaften',
 					],
 					[
 						'artwork_title'      => esc_html__( 'Stadtskizze III', 'galerie-mueller' ),
 						'artwork_medium'     => esc_html__( 'Bleistift auf Papier', 'galerie-mueller' ),
 						'artwork_year'       => 2022,
 						'artwork_dimensions' => '30 x 40 cm',
-						'artwork_category'   => 'zeichnung',
+						'artwork_category'   => 'stadtansichten',
 					],
 					[
 						'artwork_title'      => esc_html__( 'Tagesnotiz 47', 'galerie-mueller' ),
 						'artwork_medium'     => esc_html__( 'Kohle auf Papier', 'galerie-mueller' ),
 						'artwork_year'       => 2024,
 						'artwork_dimensions' => '21 x 15 cm',
-						'artwork_category'   => 'skizzen',
+						'artwork_category'   => 'abstrakt',
 					],
 				],
 				'title_field' => '{{{ artwork_title }}} ({{{ artwork_category }}})',

@@ -46,6 +46,7 @@
 @media (min-width: 768px) {
     .gm-header__nav {
         justify-content: center;
+        gap: 32px;
     }
 }
 
@@ -122,6 +123,10 @@
         margin-left: 48px;
         margin-right: 48px;
     }
+
+    .gm-header__logo--hidden {
+        display: none;
+    }
 }
 
 .gm-header__logo img {
@@ -136,6 +141,7 @@
 .gm-header__hamburger:active {
     position: relative;
     z-index: 50;
+    margin-left: auto;
     display: flex;
     height: 40px;
     width: 40px;

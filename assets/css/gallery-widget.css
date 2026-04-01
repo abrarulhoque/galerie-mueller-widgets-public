@@ -92,6 +92,15 @@
     .gm-gallery__grid {
         grid-template-columns: 1fr;
     }
+
+    .gm-gallery__tabs-nav {
+        gap: 16px 24px;
+    }
+
+    .gm-gallery__tab {
+        font-size: 12px;
+        letter-spacing: 0.15em;
+    }
 }
 
 /* Empty state */
